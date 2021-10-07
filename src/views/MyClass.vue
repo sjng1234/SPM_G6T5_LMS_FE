@@ -7,14 +7,10 @@
 <script>
 export default {
   name: "MyClass",
-  setup () {
-    
-
-    return {}
-  }
-}
+  setup() {
+    return {};
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

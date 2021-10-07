@@ -1,9 +1,7 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" /> -->
   <div class="container-fluid">
     <div class="row flex-nowrap">
-      <SideMenu/>
+      <SideMenu />
       <div class="col py-3">
         <router-view />
       </div>
@@ -19,7 +17,7 @@ export default {
   name: "App",
   components: {
     // HelloWorld,
-    SideMenu
+    SideMenu,
   },
 };
 </script>
