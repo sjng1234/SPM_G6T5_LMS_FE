@@ -4,20 +4,35 @@
       <SideMenu />
       <div class="col py-3">
         <router-view />
+        {{ testMsg }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld.vue";
 import SideMenu from "@/components/SideMenu.vue";
+import axios from "axios";
 
 export default {
   name: "App",
   components: {
-    // HelloWorld,
     SideMenu,
+  },
+  data() {
+    return {
+      testMsg: "",
+    };
+  },
+  mounted() {
+    // Axios to pull data from backend Flask API -> Have to run backend first, if successful, will see testMsg update
+    axios
+      .get("http://127.0.0.1:5000/")
+      .then((res) => {
+        console.log(res.data);
+        this.testMsg = res.data;
+      })
+      .catch((e) => console.log(e));
   },
 };
 </script>
