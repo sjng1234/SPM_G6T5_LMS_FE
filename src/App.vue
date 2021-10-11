@@ -4,7 +4,8 @@
       <SideMenu />
       <div class="col py-3">
         <router-view />
-        {{ testMsg }}
+        {{ testMsg }} <br />
+        {{ data }}
       </div>
     </div>
   </div>
@@ -22,6 +23,7 @@ export default {
   data() {
     return {
       testMsg: "",
+      data: "",
     };
   },
   mounted() {
@@ -31,6 +33,15 @@ export default {
       .then((res) => {
         console.log(res.data);
         this.testMsg = res.data;
+      })
+      .catch((e) => console.log(e));
+
+    // get All Todos
+    axios
+      .get("http://127.0.0.1:5000/getAll")
+      .then((res) => {
+        console.log(res.data);
+        this.data = res.data;
       })
       .catch((e) => console.log(e));
   },
