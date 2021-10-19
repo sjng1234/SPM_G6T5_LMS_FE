@@ -56,36 +56,74 @@
                 name="enroll"
                 id="enroll"
                 class="btn btn-primary"
-                @click="goToEnroll()"
+                data-bs-toggle="modal" 
+                data-bs-target="#staticBackdrop"
+                @click="modalOpen"
+                isOver="true"
               >
                 Enroll
               </button>
+              <div
+                class="modal fade"
+                id="staticBackdrop"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="staticBackdropLabel"
+                aria-hidden="true"
+              >
+              <div class="modal-dialog modal-xl">
+                <!-- <ItemModal v-on:toggle="modalClose" v-bind:curData="this.curData" /> -->
+                <ItemModal 
+                v-on:toggle="modalClose" v-bind:curData="this.curData" 
+                />
+              </div>
+              </div>
+
             </div>
             <div class="col-1">
             </div>
           </div>
           <br>
         </div>
+        
       </div>
-  
-    
-
 </template>
 
 <script>
+// import ItemModal from "@/components/ModalBody.vue";
+import ItemModal from "../components/ModalBody.vue";
+
 export default {
   name: "Home",
+  components: {
+    ItemModal,
+  },
   setup() {
     return {};
   },
   methods: {
+    modalOpen(data) {
+      console.log(data);
+      console.log(this.modalState);
+      this.curData = data;
+      this.modalState = !this.modalState;
+    },
+    modalClose(msg) {
+      console.log(msg);
+      console.log(this.modalState);
+      this.modalState = !this.modalState;
+    },
     goToEnroll() {
       // this.$router.push("./enroll");
       return
     },
+
   },
   data() {
     return {
+      modalState: false,
+      curData: {},
       items: [
       {
         courseID: "0001",
