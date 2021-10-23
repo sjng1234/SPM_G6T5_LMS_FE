@@ -1,11 +1,4 @@
 <template>
-    
-        <!-- <div
-        data-bs-toggle="modal"
-        @click="emitFn"
-        data-bs-target="#staticBackdrop"
-        class="card"
-        > -->
 
             <div class="row border border-1 rounded">
                 <div class="col-1">
@@ -36,19 +29,18 @@
                     @click="emitFn"
                     isOver="true"
                     >
-                    Enroll
+                    Materials
                     </button>
                 </div>
                 
             </div>
             <br>
-        <!-- </div> -->
 
 </template>
 
 <script>
 export default {
-    name: "ClassRow",
+    name: "MyCourses",
     props: [
         "courseID",
         "classID",
@@ -60,7 +52,8 @@ export default {
         "endDate",
         "startTime",
         "endTime",
-        "classSize"
+        "classSize",
+        "chapterDoc"
     ],
     methods: {
         emitFn() {
@@ -77,6 +70,7 @@ export default {
             startTime: this.startTime,
             endTime: this.endTime,
             classSize: this.classSize,
+            chapterDoc: this.chapterDoc,
         };
         this.$emit("toggle", propData);
         },
