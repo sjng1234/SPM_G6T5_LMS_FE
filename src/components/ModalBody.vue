@@ -41,22 +41,22 @@
 
                 <div class="row">
                     <div class="col-2">
-                    0001
+                    {{ curData.courseID }}
                     </div>
                     <div class="col-2">
-                    00011
+                    {{ curData.classID }}
                     </div>
                     <div class="col-2">
-                    Fundamentals of XXX
+                    {{ curData.courseName }}
                     </div>
                     <div class="col-2">
-                    Jane Smith
+                    {{ curData.trainerName }}
                     </div>
                     <div class="col-2">
-                    X0C79
+                    {{ curData.trainerID }}
                     </div>
                     <div class="col-2">
-                    Fox
+                    {{ curData.preReq }}
                     </div>
                 </div>
 
@@ -85,19 +85,19 @@
 
                 <div class="row">
                     <div class="col-2">
-                    30/09/2021
+                    {{ curData.startDate }}
                     </div>
                     <div class="col-2">
-                    10/10/2021
+                    {{ curData.endDate }}
                     </div>
                     <div class="col-2">
-                    08:15
+                    {{ curData.startTime }}
                     </div>
                     <div class="col-2">
-                    11:30
+                    {{ curData.endTime }}
                     </div>
                     <div class="col-2">
-                    45
+                    {{ curData.classSize }}
                     </div>
                     <div class="col-2">
                     </div>
@@ -105,10 +105,7 @@
 
                 <br><br><br>
                 <div class="row">
-                    <div class="col-10">
-                    </div>
-                    <div class="col-1">
-                        <button type="button" class="btn btn-outline-info">Cancel</button>
+                    <div class="col-11">
                     </div>
                     <div class="col-1">
                         <button type="button" class="btn btn-primary">Confirm</button>
