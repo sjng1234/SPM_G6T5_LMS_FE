@@ -70,8 +70,8 @@
 
 <script>
 // import ItemModal from "@/components/ModalBody.vue";
-import ItemModal from "../components/ModalBody.vue";
-import ClassRow from "../components/ClassRow.vue";
+import ItemModal from "../components/ModalEnroll.vue";
+import ClassRow from "../components/FindCoursesRow.vue";
 
 
 export default {
