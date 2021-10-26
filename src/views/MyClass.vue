@@ -103,11 +103,29 @@ export default {
           endTime: "11:30",
           classSize: 35,
           // HEIN: HAVENT DECIDE HOW I WANT TO DISPLAY THE CHAPTER AND RESPECTIVE DOCUMENTS YET
-          chapterDoc: {
-            one: "Python Set-up",
-            2: "Jupyter Set-up",
-          }
+          // REMINDER: fileDownload needs to be list of files...multiple files
+          chapterDoc: [
+            {lessonName : "Python Set-up", fileDownload: "VSC.exe"},
+            {lessonName  : "Jupyter Set-up", fileDownload: "AnacondaSetUp.exe"},
+          ]
         },
+        {
+          courseID: "IS112",
+          classID: "G1",
+          courseName: "Introduction to Vue",
+          trainerName: "Ouh Eng Smith",
+          trainerID: "SMUF131",
+          preReq: "NA",
+          startDate: "01/09/2021",
+          endDate: "09/09/2021",
+          startTime: "08:15",
+          endTime: "11:30",
+          classSize: 32,
+          chapterDoc: [
+            {lessonName : "Vue Set-up", fileDownload: "Vue.exe"},
+            {lessonName  : "whatever Set-up", fileDownload: "whatever.exe"},
+          ]
+        }
       ],
       
     }
