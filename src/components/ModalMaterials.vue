@@ -33,21 +33,25 @@
                 </div>
                 <hr>
 
-                <div class="row">
-                    <div class="col-1">
-                        Number HERE
+                    <div v-for="(chapter, index) in myData.chapterDoc" v-bind:key="chapter">
+                        <div class="row">
+                            <div class="col-1">
+                                {{index+ 1}}
+                            </div>
+                            <div class="col-3">
+                                {{chapter.lessonName}}
+                                
+                            </div>
+                            <div class="col-4">
+                                {{chapter.fileDownload}}
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-primary" @click="onDownload()">Download</button>
+                            </div>
+                            <br><br><br>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        Doc Name HERE
-                    </div>
-                    <div class="col-4">
-                    </div>
-                    <div class="col-4">
-                        <button type="button" class="btn btn-primary" @click="onDownload()">Download</button>
-                    </div>
-                </div>
 
-                
             </div>
         </div>
     </div>
