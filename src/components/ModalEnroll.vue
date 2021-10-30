@@ -13,8 +13,16 @@
 
         <div class="modal-body">
             <div class="container-fluid" style="margin-top: 50px margin-left: 50px">
-                <div class="row">
-                    <h1 class="text-start mb-5">Confirm Enrollment</h1>
+                <div v-if="enrollmentDone">
+                    <div class="row">
+                        <h1 class="text-start mb-5">Enrollment Confirmed</h1>
+                    </div>
+                </div>
+
+                <div v-else>
+                    <div class="row">
+                        <h1 class="text-start mb-5">Confirm Enrollment</h1>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -108,7 +116,13 @@
                     <div class="col-11">
                     </div>
                     <div class="col-1">
-                        <button type="button" class="btn btn-primary" @click="confirmEnroll()">Confirm</button>
+                        <!--NOTE: enrollmentDone still buggy, it must remain confirmed for those enrolled and still be available to enroll for those not yet confirmed !-->
+                        <div v-if="!enrollmentDone">
+                            <button type="button" class="btn btn-primary" @click="confirmEnroll()">Confirm</button>
+                        </div>
+                        <div v-else>
+                            <button type="button" class="btn btn-outline-primary" @click="emitFn" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                        </div>
                     </div>
                 </div>
             
@@ -124,10 +138,10 @@ export default {
     name:"ItemModal",
     props: ["curData"],
     
-    // data(){
-    //     return{
-
-    //     }},
+    data(){
+        return{
+            enrollmentDone: false,
+        }},
 
     methods: {
         emitFn() {
@@ -135,7 +149,8 @@ export default {
         this.$emit("toggle", "closed");
         },
         confirmEnroll() {
-            alert("You have successfully enrolled in this course!");
+            this.enrollmentDone = true;
+            // alert("You have successfully enrolled in this course!");
         }
     },
 }
