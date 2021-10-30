@@ -108,7 +108,7 @@
                     <div class="col-11">
                     </div>
                     <div class="col-1">
-                        <button type="button" class="btn btn-primary">Confirm</button>
+                        <button type="button" class="btn btn-primary" @click="confirmEnroll()">Confirm</button>
                     </div>
                 </div>
             
@@ -134,6 +134,9 @@ export default {
         console.log(222);
         this.$emit("toggle", "closed");
         },
+        confirmEnroll() {
+            alert("You have successfully enrolled in this course!");
+        }
     },
 }
 </script>
