@@ -102,9 +102,11 @@ export default {
           startTime: "08:15",
           endTime: "11:30",
           classSize: 35,
+          // HEIN: HAVENT DECIDE HOW I WANT TO DISPLAY THE CHAPTER AND RESPECTIVE DOCUMENTS YET
+          // REMINDER: fileDownload needs to be list of files...multiple files
           chapterDoc: [
-            {lessonName : "Python Set-up", fileDownload: ["VSC.exe", "VSC2.exe", "VSC3.exe"]},
-            {lessonName  : "Jupyter Set-up", fileDownload: ["AnacondaSetUp.exe", "Ana2.exe"]},
+            {lessonName : "Python Set-up", fileDownload: "VSC.exe"},
+            {lessonName  : "Jupyter Set-up", fileDownload: "AnacondaSetUp.exe"},
           ]
         },
         {
@@ -120,8 +122,8 @@ export default {
           endTime: "11:30",
           classSize: 32,
           chapterDoc: [
-            {lessonName : "Vue Set-up", fileDownload: ["VSC.exe", "VSC2.exe", "VSC3.exe"]},
-            {lessonName  : "whatever Set-up", fileDownload: ["whatever1.exe", "whatever2.exe"]},
+            {lessonName : "Vue Set-up", fileDownload: "Vue.exe"},
+            {lessonName  : "whatever Set-up", fileDownload: "whatever.exe"},
           ]
         }
       ],

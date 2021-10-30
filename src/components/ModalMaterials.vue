@@ -35,21 +35,37 @@
 
                     <div v-for="(chapter, index) in myData.chapterDoc" v-bind:key="chapter">
                         <div class="row">
+
                             <div class="col-1">
                                 {{index+ 1}}
                             </div>
+
                             <div class="col-3">
                                 {{chapter.lessonName}}
                                 
                             </div>
+
                             <div class="col-4">
-                                {{chapter.fileDownload}}
+                                <div v-for="file in chapter.fileDownload" v-bind:key="file">
+                                    <div class="row">
+                                        {{file}} 
+                                        <br><br>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="col-4">
-                                <button type="button" class="btn btn-primary" @click="onDownload()">Download</button>
+                                <div v-for="file in chapter.fileDownload" v-bind:key="file">
+                                    <div class="row">
+                                        <button type="button" class="btn btn-primary mb-3" @click="onDownload()">Download</button>
+                                        <br><br>
+                                    </div>
+                                </div>
                             </div>
-                            <br><br><br>
-                        </div>
+                            
+
+                        </div> 
+                        <br><br><br>
                     </div>
 
             </div>
