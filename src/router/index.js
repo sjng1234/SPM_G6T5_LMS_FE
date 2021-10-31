@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from "@/views/Home.vue";
 import MyClass from "@/views/MyClass.vue";
 import Inbox from "@/views/Inbox.vue";
+import Login from "@/views/Login.vue";
 
 const routes = [
   {
@@ -18,6 +19,12 @@ const routes = [
     path: "/Inbox",
     name: "Inbox",
     component: Inbox,
+  },
+  {
+    path: "/Login",
+    name: "Login",
+    component: Login,
+    props: true,
   },
 ];
 
