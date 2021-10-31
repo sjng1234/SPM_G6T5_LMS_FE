@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row flex-nowrap">
-      <SideMenu v-if="this.user.length>0"/>
+      <SideMenu @loggedIn="updateLoggedIn" v-if="this.user.length>0"/>
       <div class="col py-3">
         <router-view v-on:loggedIn="updateLoggedIn"/>
         {{ testMsg }} <br />
@@ -53,7 +53,7 @@ export default {
   methods:{
     updateLoggedIn(user){
       this.user=user;
-    }
+    },
   }
 };
 </script>

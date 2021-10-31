@@ -1,13 +1,17 @@
 <template>
-    <div class="container m-auto p-auto">
-    <div class="card">
-        <h1>Login</h1>
-        <div class="d-grid gap-2 col-6 mx-auto">
-            <button class="btn btn-primary" @click="loginAdmin()" type="button">Admin</button>
-            <button class="btn btn-primary" @click="loginLearner()" type="button">Learner</button>
-            <button class="btn btn-primary" @click="loginTrainer()" type="button">Trainer</button>
+    <div class="container" style="margin-top: 200px">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body d-grid gap-3 col-6 mx-auto">
+                        <h3>LOGIN</h3>
+                        <button class="btn btn-secondary" @click="loginAdmin()" type="button">Admin</button>
+                        <button class="btn btn-primary" @click="loginLearner()" type="button">Learner</button>
+                        <button class="btn btn-outline-primary" @click="loginTrainer()" type="button">Trainer</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
     </div>
 </template>
 <script>
