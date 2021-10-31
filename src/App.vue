@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
     <div class="row flex-nowrap">
-      <SideMenu />
+      <SideMenu @loggedIn="updateLoggedIn" v-if="this.user.length>0"/>
       <div class="col py-3">
-        <router-view />
+        <router-view v-on:loggedIn="updateLoggedIn"/>
         {{ testMsg }} <br />
         {{ data }}
       </div>
@@ -24,12 +24,17 @@ export default {
     return {
       testMsg: "",
       data: "",
+      user: "",
     };
   },
   mounted() {
+    if (this.user.length===0){
+      this.$router.push("/Login")
+    }
+
     // Axios to pull data from backend Flask API -> Have to run backend first, if successful, will see testMsg update
     axios
-      .get("http://127.0.0.1:5000/")
+      .get("http://127.0.0.1:5000/course/getAll")
       .then((res) => {
         console.log(res.data);
         this.testMsg = res.data;
@@ -45,6 +50,11 @@ export default {
       })
       .catch((e) => console.log(e));
   },
+  methods:{
+    updateLoggedIn(user){
+      this.user=user;
+    },
+  }
 };
 </script>
 
