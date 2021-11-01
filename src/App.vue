@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
     <div class="row flex-nowrap">
-      <SideMenu @loggedIn="updateLoggedIn" v-if="this.user.length>0"/>
-      <SideMenuAdmin @loggedIn="updateLoggedIn" v-if="this.user.length>0 && this.user "/>
+      <SideMenu @loggedIn="updateLoggedIn" v-if="this.user.length>0 && this.user !== 'admin'"/>
+      <SideMenuAdmin @loggedIn="updateLoggedIn" v-if="this.user.length>0 && this.user === 'admin'"/>
       <div class="col py-3">
         <router-view v-on:loggedIn="updateLoggedIn"/>
         
@@ -13,12 +13,13 @@
 
 <script>
 import SideMenu from "@/components/SideMenu.vue";
+import SideMenuAdmin from "@/components/SideMenuAdmin.vue";
 import axios from "axios";
 
 export default {
   name: "App",
   components: {
-    SideMenu,
+    SideMenu, SideMenuAdmin
   },
   data() {
     return {
