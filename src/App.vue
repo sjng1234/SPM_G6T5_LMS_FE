@@ -2,6 +2,7 @@
   <div class="container-fluid">
     <div class="row flex-nowrap">
       <SideMenu @loggedIn="updateLoggedIn" v-if="this.user.length>0"/>
+      <SideMenuAdmin @loggedIn="updateLoggedIn" v-if="this.user.length>0 && this.user "/>
       <div class="col py-3">
         <router-view v-on:loggedIn="updateLoggedIn"/>
         
