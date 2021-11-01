@@ -1,8 +1,12 @@
 <template>
-  <div class="container">
-      <h1 class="text-start mb-5 mt-2">Courses</h1>
-    
-    
+  <div class="container d-flex flex-column">
+      <h1 class="text-start mb-2 mt-2">Courses</h1>
+      <h3 class="text-danger" v-if="course_data == 'error'">⚠ Error! Please refresh page.</h3>
+      <div v-if="course_data != 'error' " class="d-flex flex-row justify-content-end button">
+        <router-link to="/CreateCourse">
+          <button class="btn btn-outline-dark">+ New Course</button>
+        </router-link>
+      </div>
         <div class="container row">
           <table class="table" v-if="course_data != 'error'">
             <thead>
@@ -16,7 +20,7 @@
 
             <tbody>
                 <tr v-if="!course_data.length">
-                    <th colspan="4">No data found!</th>
+                    <th colspan="3">No courses added yet!</th>
                 </tr>
                 <tr v-for="course in course_data" v-bind:key="course.course_id">
                 <th scope="row">{{course.course_id}}</th>
@@ -49,7 +53,7 @@ export default {
   },
   data() {
     return {
-        course_data: []
+        course_data: [],
     } 
   },
   mounted(){
@@ -73,4 +77,8 @@ export default {
 </script>
 
 <style scoped>
+.button{
+  padding-right:2rem;
+  margin-bottom:1rem
+}
 </style>

@@ -52,6 +52,9 @@ export default {
             axios.post('http://127.0.0.1:5000/course/add', course_data).then((response)=>{
                 console.log(response)
                 this.uploaded = true
+                setTimeout(()=>{
+                    this.$router.push("/CourseAdmin");
+                },1500)
             }).catch((error)=>{
                 console.log(error)
                 this.uploaded = false
