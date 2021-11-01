@@ -49,7 +49,7 @@
             "
           >
             <i class="fs-4 bi-house"></i>
-            <span class="ms-1 d-none d-sm-inline">Available Courses</span>
+            <span class="ms-1 d-none d-sm-inline">Courses</span>
           </router-link>
         </li>
 
@@ -67,7 +67,7 @@
             "
           >
             <i class="fs-4 bi-table"></i>
-            <span class="ms-1 d-none d-sm-inline">My Classes</span>
+            <span class="ms-1 d-none d-sm-inline">Classes</span>
           </router-link>
         </li>
 

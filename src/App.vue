@@ -4,8 +4,7 @@
       <SideMenu @loggedIn="updateLoggedIn" v-if="this.user.length>0"/>
       <div class="col py-3">
         <router-view v-on:loggedIn="updateLoggedIn"/>
-        {{ testMsg }} <br />
-        {{ data }}
+        
       </div>
     </div>
   </div>
@@ -41,15 +40,7 @@ export default {
       })
       .catch((e) => console.log(e));
 
-    // get All Todos
-    axios
-      .get("http://127.0.0.1:5000/getAll")
-      .then((res) => {
-        console.log(res.data);
-        this.data = res.data;
-      })
-      .catch((e) => console.log(e));
-  },
+    },
   methods:{
     updateLoggedIn(user){
       this.user=user;
