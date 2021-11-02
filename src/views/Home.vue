@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <div>
       <h1 class="text-start mb-5">Find Classes</h1>
     </div>
@@ -65,20 +65,59 @@
           />
         </div>
       </div>
+      </div> -->
+    <div class="container d-flex flex-column">
+      <h1 class="text-start mb-2 mt-2">Find Courses</h1>
+      <h3 class="text-danger" v-if="items == 'error'">⚠ Error! Please refresh page.</h3>
+      <div v-if="items != 'error' " class="d-flex flex-row justify-content-end button">
       </div>
+        <div class="container row">
+          <table class="table" v-if="items != 'error'">
+            <thead>
+                <tr>
+                <th scope="col">Course ID</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Date Created</th>
+                <th scope="col"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr v-if="!items.length">
+                    <th colspan="3">No courses added yet!</th>
+                </tr>
+                <tr v-for="item in items" v-bind:key="item.course_id">
+                <th scope="row">{{item.course_id}}</th>
+                <td>{{item.course_name}}</td>
+                <td>{{item.date_created}}</td>
+                <td>
+                    <button class="btn btn-primary" @click="viewClass(item.course_id)">View Classes</button>
+                </td>
+                </tr>
+                
+            </tbody>
+            </table>
+            
+          
+        
+      
+        </div>
+    </div>
+     
 </template>
 
 <script>
 // import ItemModal from "@/components/ModalBody.vue";
-import ItemModal from "../components/ModalEnroll.vue";
-import ClassRow from "../components/FindCoursesRow.vue";
+// import ItemModal from "../components/ModalEnroll.vue";
+// import ClassRow from "../components/FindCoursesRow.vue";
+import axios from "axios";
 
 
 export default {
   name: "Home",
   components: {
-    ItemModal,
-    ClassRow,
+    // ItemModal,
+    // ClassRow,
   },
   setup() {
     return {};
@@ -87,37 +126,51 @@ export default {
     return {
       modalState: false,
       curData: {},
+      selected_courseID: "",
       items: [
-      {
-        courseID: "IS216",
-        classID: "G9",
-        courseName: "Web App Development",
-        trainerName: "Shar",
-        trainerID: "SMUF001",
-        preReq: "IS211",
-        startDate: "01/10/2021",
-        endDate: "09/10/2021",
-        startTime: "08:15",
-        endTime: "11:30",
-        classSize: 42
-      },
-      {
-        courseID: "IS311",
-        classID: "G2",
-        courseName: "Machine Learning Algo",
-        trainerName: "David James",
-        trainerID: "SMUF001",
-        preReq: "IS301",
-        startDate: "03/10/2021",
-        endDate: "15/10/2021",
-        startTime: "13:00",
-        endTime: "15:30",
-        classSize: 32
-      },
+      // {
+      //   courseID: "IS216",
+      //   classID: "G9",
+      //   courseName: "Web App Development",
+      //   trainerName: "Shar",
+      //   trainerID: "SMUF001",
+      //   preReq: "IS211",
+      //   startDate: "01/10/2021",
+      //   endDate: "09/10/2021",
+      //   startTime: "08:15",
+      //   endTime: "11:30",
+      //   classSize: 42
+      // },
+      // {
+      //   courseID: "IS311",
+      //   classID: "G2",
+      //   courseName: "Machine Learning Algo",
+      //   trainerName: "David James",
+      //   trainerID: "SMUF001",
+      //   preReq: "IS301",
+      //   startDate: "03/10/2021",
+      //   endDate: "15/10/2021",
+      //   startTime: "13:00",
+      //   endTime: "15:30",
+      //   classSize: 32
+      // },
     ]
     }
   },
+  mounted() {
+    axios.get("http://127.0.0.1:5000/course/getAll").then(response => {
+          console.log(response)
+          this.items = response.data
+      }).catch((error) => {
+            console.log(error)
+            this.items = "error"
+      })
+  },
   methods: {
+    viewClass(id){
+      console.log(id)
+      this.$router.push({ name: 'Class', params: { course_id: id }})
+    },
     modalOpen(data) {
       console.log("OPEN MODAL");
       console.log(data);
