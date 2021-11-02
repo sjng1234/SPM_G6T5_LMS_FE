@@ -1,62 +1,90 @@
 <template>
-    <div v-if="uploaded == true" class="alert alert-success" role="alert">
-    ✔ Successfully Uploaded!
+    <div>
+        
+        <div v-if="uploaded == true" class="alert alert-success" role="alert">
+        ✔ Successfully Uploaded!
+        </div>
+        <div v-else-if="uploaded == false" class="alert alert-danger" role="alert">
+        ✖ Failed to upload - Please try again!
+        </div>
+        <h1>Create Class</h1>
+        
+        <form class="container-fluid p-5" onsubmit="return false;">
+            <h4 class="text-primary">{{course_id}}: {{course_name}}</h4>
+            <div class="input-group mb-3 mt-2">
+                <span class="input-group-text" id="basic-addon1">Class Size</span>
+                <input type="number" class="form-control" placeholder="20" min="1" max="100" v-model="class_size" required>
+            </div>
+            <div class="input-group mb-3 mt-2">
+                <span class="input-group-text" id="basic-addon1">Start Date</span>
+                <input type="date" class="form-control date"  v-model="start_datetime" :min="today" required/>
+                <span class="input-group-text" id="end_date">End Date</span>
+                <input type="date" class="form-control"  v-model="end_datetime" :min="start_datetime"   required/>
+            </div>
+            <button type="submit" onsubmit="return false;" v-on:click="createClass()" class="btn btn-primary">Submit</button>
+        </form>
     </div>
-    <div v-else-if="uploaded == false" class="alert alert-danger" role="alert">
-    ✖ Failed to upload - Please try again!
-    </div>
-    <h1>Create Course</h1>
-    <form class="container-fluid p-5" onsubmit="return false;">
-        <div class="input-group mb-3 mt-2">
-            <span class="input-group-text" id="basic-addon1">Course ID</span>
-            <input type="text" class="form-control" maxlength="6" style="text-transform:uppercase" placeholder="CS101" v-model="course_id" required>
-        </div>
-        <div class="input-group mb-3 mt-2">
-            <span class="input-group-text" id="basic-addon1">Course Name</span>
-            <input type="text" class="form-control" placeholder="Cybersecurity 101" v-model="course_name" required>
-        </div>
-        <div class="input-group mb-3 mt-2">
-            <span class="input-group-text" id="basic-addon1">Course Description</span>
-            <textarea type="text" class="form-control" placeholder="Cybersecurity 101 is an introductory course to cybersecurity where you get to learn..." v-model="course_description" required/>
-        </div>
-        <button type="submit" onsubmit="return false;" v-on:click="createCourse()" class="btn btn-primary">Submit</button>
-    </form>
 
 </template>
 
 <script>
 import axios from "axios"
 export default {
+    props: ["course_id", "course_name"],
     data(){
         return{
-            course_id: "",
-            course_name: "",
-            course_description: "",
-            date_created: "",
-            course_creator_id: "HR111",
-            uploaded: null
+            "class_creator_id":"Lee Yeow Leong",
+            "start_datetime": null,
+            "end_datetime": null,
+            "class_size": null,
+            "trainer_id": 1,
+            "uploaded": null,
+            
         }
     },
+    computed:{
+        today(){
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            if(dd<10) {
+                dd = '0'+dd
+            } 
+            if(mm<10) {
+                mm = '0'+mm
+            } 
+            today = yyyy + '-' + mm + '-' + dd;
+            return today;
+        },
+    },
+    mounted(){
+        console.log(this.today)
+    },
     methods:{
-        createCourse(){
-            this.date_created = new Date()
+        createClass(){
+            if(this.class_size>0 && this.class_size<100 && this.start_datetime && this.end_datetime){
+                var course_data = {
+                    "course_id": this.course_id,
+                    "class_creator_id":this.class_creator_id,
+                    "start_datetime": this.start_datetime,
+                    "end_datetime": this.end_datetime,
+                    "class_size": this.class_size,
+                    "trainer_id": this.trainer_id,
+                }
 
-            var course_data = {
-                course_id: this.course_id,
-                course_name: this.course_name,
-                course_description: this.course_description,
-                date_created: this.date_created,
-                course_creator_id: this.course_creator_id,
-            }
-
-            axios.post('http://127.0.0.1:5000/class/add', course_data).then((response)=>{
-                console.log(response)
-                this.uploaded = true
-            }).catch((error)=>{
-                console.log(error)
-                this.uploaded = false
-                })
-            ;
+                axios.post('http://127.0.0.1:5000/classes/add', course_data).then((response)=>{
+                    console.log(response)
+                    this.uploaded = true
+                    setTimeout(()=>{
+                        
+                        this.$router.push({name:'ClassAdmin', params: {course_id: this.course_id}});
+                    },1000)
+                }).catch((error)=>{
+                    console.log(error)
+                    this.uploaded = false
+                    })
+                ;}
         }
 
     }
@@ -65,5 +93,11 @@ export default {
 </script>
 
 <style>
-
+.date{
+    margin-right: 10px;
+}
+#end_date{
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
 </style>

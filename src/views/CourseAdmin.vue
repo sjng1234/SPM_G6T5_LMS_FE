@@ -1,6 +1,12 @@
 <template>
   <div class="container d-flex flex-column">
       <h1 class="text-start mb-2 mt-2">Courses</h1>
+      <div v-if="isDeleted == true" class="alert alert-success" role="alert">
+        ✔ Successfully Deleted!
+        </div>
+        <div v-else-if="isDeleted == false" class="alert alert-danger" role="alert">
+        ✖ Failed to delete - Please try again!
+        </div>
       <h3 class="text-danger" v-if="course_data == 'error'">⚠ Error! Please refresh page.</h3>
       <div v-if="course_data != 'error' " class="d-flex flex-row justify-content-end button">
         <router-link to="/CreateCourse">
@@ -14,7 +20,7 @@
                 <th scope="col">Course ID</th>
                 <th scope="col">Course Name</th>
                 <th scope="col">Date Created</th>
-                <th scope="col"></th>
+                <th colspan="2" ></th>
                 </tr>
             </thead>
 
@@ -26,7 +32,8 @@
                 <th scope="row">{{course.course_id}}</th>
                 <td>{{course.course_name}}</td>
                 <td>{{course.date_created}}</td>
-                <td><button class="btn btn-primary" @click="viewClass(course.course_id)">View</button></td>
+                <td><button class="btn btn-sm btn-primary" @click="viewClass(course.course_id, course.course_name)">View</button></td>
+                <td><button class="btn btn-sm btn-outline-danger" @click="deleteCourse(course.course_id)">Delete</button></td>
                 </tr>
                 
             </tbody>
@@ -54,6 +61,7 @@ export default {
   data() {
     return {
         course_data: [],
+        isDeleted: null,
     } 
   },
   mounted(){
@@ -67,10 +75,22 @@ export default {
       
   },
   methods: {
-      viewClass(id){
-          console.log(id)
-          this.$router.push({ name: '', params: { course_id: id } });
-      }
+      viewClass(id, name){
+          this.$router.push({ name: 'ClassAdmin', params: { course_id: id, course_name:name} });
+      },
+      deleteCourse(course_id){
+            var sure = confirm(`Are you sure you want to delete this course (${course_id})?`)
+            if(sure){
+            axios.delete(`http://127.0.0.1:5000/course/delete/${course_id}`)
+            .then((response) => {
+                console.log(response)
+                location.reload();
+                this.isDeleted = true
+            })
+            .catch((error) => {
+                console.log(error)
+                this.isDeleted = false})}
+        },
   },
   
 };
