@@ -38,7 +38,7 @@
         <!-- Find Course -->
         <li class="nav-item">
           <router-link
-            to="/"
+            to="/CourseAdmin"
             class="
               nav-link
               align-middle
@@ -56,7 +56,7 @@
         <!-- My Classes -->
         <li>
           <router-link
-            to="/MyClass"
+            to="/CreateCourse"
             class="
               nav-link
               px-0

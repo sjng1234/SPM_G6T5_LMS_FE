@@ -46,28 +46,11 @@
               d-flex
               flex-row
               align-items-center
+              text-danger
             "
           >
             <i class="fs-4 bi-house"></i>
             <span class="ms-1 d-none d-sm-inline">Available Courses</span>
-          </router-link>
-        </li>
-
-        <!-- My Classes -->
-        <li>
-          <router-link
-            to="/AvailableClass"
-            class="
-              nav-link
-              px-0
-              align-middle
-              d-flex
-              flex-row
-              align-items-center
-            "
-          >
-            <i class="fs-4 bi-table"></i>
-            <span class="ms-1 d-none d-sm-inline">My Classes</span>
           </router-link>
         </li>
 
@@ -82,6 +65,7 @@
               d-flex
               flex-row
               align-items-center
+              text-danger
             "
           >
             <i class="fs-4 bi-inbox-fill"></i>
