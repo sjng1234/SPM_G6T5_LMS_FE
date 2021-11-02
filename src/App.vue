@@ -30,7 +30,7 @@ export default {
   },
   mounted() {
     if (this.user.length===0){
-      // this.$router.push("/Login")
+       this.$router.push("/Login")
     }
 
     // Axios to pull data from backend Flask API -> Have to run backend first, if successful, will see testMsg update
