@@ -31,34 +31,36 @@ import axios from "axios"
 export default {
     data(){
         return{
-            course_id: "",
+            class_creator_id:2,
+            start_datetime: "",
+            end_datetime: "",
+            class_size: "",
             course_name: "",
-            course_description: "",
-            course_creator_id: 1,
+            trainer_id: "",
             uploaded: null
         }
     },
     methods:{
         createCourse(){
-            var course_data = {
-                course_id: this.course_id,
-                course_name: this.course_name,
-                course_description: this.course_description,
-                date_created: this.date_created,
-                course_creator_id: this.course_creator_id,
-            }
+            if(this.course_id && this.course_name && this.course_description){
+                var course_data = {
+                    course_id: this.course_id.toUpperCase(),
+                    course_name: this.course_name,
+                    course_description: this.course_description,
+                    course_creator_id: this.course_creator_id,
+                }
 
-            axios.post('http://127.0.0.1:5000/course/add', course_data).then((response)=>{
-                console.log(response)
-                this.uploaded = true
-                setTimeout(()=>{
-                    this.$router.push("/CourseAdmin");
-                },1500)
-            }).catch((error)=>{
-                console.log(error)
-                this.uploaded = false
-                })
-            ;
+                axios.post('http://127.0.0.1:5000/course/add', course_data).then((response)=>{
+                    console.log(response)
+                    this.uploaded = true
+                    setTimeout(()=>{
+                        this.$router.push("/CourseAdmin");
+                    },1000)
+                }).catch((error)=>{
+                    console.log(error)
+                    this.uploaded = false
+                    })
+                ;}
         }
 
     }

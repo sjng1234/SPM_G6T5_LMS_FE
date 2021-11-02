@@ -38,7 +38,7 @@
         <!-- Find Course -->
         <li class="nav-item">
           <router-link
-            to="/"
+            to="/CourseAdmin"
             class="
               nav-link
               align-middle
@@ -50,7 +50,7 @@
             "
           >
             <i class="fs-4 bi-house"></i>
-            <span class="ms-1 d-none d-sm-inline">Available Courses</span>
+            <span class="ms-1 d-none d-sm-inline">Courses</span>
           </router-link>
         </li>
 

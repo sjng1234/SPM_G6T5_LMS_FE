@@ -6,6 +6,7 @@ import Login from "@/views/Login.vue";
 import CreateCourse from "@/views/CreateCourse.vue";
 import CreateClass from "@/views/CreateClass.vue";
 import CourseAdmin from "@/views/CourseAdmin.vue";
+import ClassAdmin from "@/views/ClassAdmin.vue";
 import Class from "@/views/Class.vue";
 
 const routes = [
@@ -40,6 +41,12 @@ const routes = [
     path: "/CourseAdmin",
     name: "CourseAdmin",
     component: CourseAdmin,
+    props: true,
+  },
+  {
+    path: "/ClassAdmin/:course_id",
+    name: "ClassAdmin",
+    component: ClassAdmin,
     props: true,
   },
   {
