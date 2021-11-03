@@ -5,7 +5,7 @@
     <div v-else-if="uploaded == false" class="alert alert-danger" role="alert">
     ✖ Failed to upload - Please try again!
     </div>
-    <h1>Create Course</h1>
+    <h1>Create Quiz</h1>
     <form class="container-fluid p-5" onsubmit="return false;">
         <div class="input-group mb-3 mt-2">
             <span class="input-group-text" id="basic-addon1">Course ID</span>
