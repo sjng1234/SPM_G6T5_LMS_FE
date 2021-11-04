@@ -9,7 +9,7 @@
         </div>
         <h3 class="text-danger" v-if="class_data == 'error'">⚠ Error! Course not found.</h3>
         <div v-if="class_data != 'error' " class="d-flex flex-row justify-content-end button">
-                <button class="btn btn-outline-dark" @click="CreateClass()">+ New Class</button>
+                <button class="btn btn-outline-dark" @click="createClass()">+ New Class</button>
         </div>
         <div class="container row">
             <table class="table" v-if="class_data != 'error'">
@@ -37,8 +37,11 @@
                         <td>{{eachClass.class_size}}</td>
                         <td>{{eachClass.start_datetime}}</td>
                         <td>{{eachClass.end_datetime}}</td>
-                        <td><button class="btn btn-sm btn-primary">+Quiz</button></td> 
-                        <td><button class="btn btn-sm btn-secondary">Enrolment</button></td> 
+                        <td>
+                            <button v-if="!eachClass.quiz_created" class="btn btn-sm btn-dark" @click="addQuiz(eachClass.course_id,eachClass.class_id)">+Quiz</button>
+                            <button v-else class="btn btn-sm btn-outline-primary" @click="viewQuiz(eachClass.course_id,eachClass.class_id)">Quiz</button>
+                        </td> 
+                        <td><button class="btn btn-sm btn-secondary">Enrolment</button></td>
                         <td><button class="btn btn-sm btn-outline-danger" @click="deleteClass(eachClass.class_id)">Delete</button></td> 
                     </tr>
                 </tbody>
@@ -76,7 +79,7 @@ export default {
         })}
     },
     methods: {
-        CreateClass(){
+        createClass(){
             this.$router.push({name: 'CreateClass', params: {course_id: this.course_id, course_name: this.course_name}})
         },
         
@@ -95,7 +98,10 @@ export default {
                 console.log(error)
                 this.isDeleted = false})}
         },
+        addQuiz(course_id,class_id){
+            this.$router.push({name: 'CreateQuiz', params: {course_id: course_id,course_name: this.course_name, class_id: class_id}})
         }
+    }
     }
 
 </script>

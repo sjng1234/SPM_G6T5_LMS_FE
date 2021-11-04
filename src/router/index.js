@@ -5,6 +5,7 @@ import Inbox from "@/views/Inbox.vue";
 import Login from "@/views/Login.vue";
 import CreateCourse from "@/views/CreateCourse.vue";
 import CreateClass from "@/views/CreateClass.vue";
+import CreateQuiz from "@/views/CreateQuiz.vue";
 import CourseAdmin from "@/views/CourseAdmin.vue";
 import ClassAdmin from "@/views/ClassAdmin.vue";
 import Class from "@/views/Class.vue";
@@ -53,6 +54,12 @@ const routes = [
     path: "/CreateClass",
     name: "CreateClass",
     component: CreateClass,
+    props: true,
+  },
+  {
+    path: "/CreateQuiz/:course_id-:class_id",
+    name: "CreateQuiz",
+    component: CreateQuiz,
     props: true,
   },
   {
