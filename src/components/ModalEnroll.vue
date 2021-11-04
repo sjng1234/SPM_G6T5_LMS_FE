@@ -27,56 +27,45 @@
 
                 <div class="row">
                     <div class="col-2">
-                    Course ID
+                    Course ID 
                     </div>
                     <div class="col-2">
                     Class ID
                     </div>
-                    <div class="col-2">
-                    Course Name
-                    </div>
+                    
                     <div class="col-2">
                     Trainer Name
                     </div>
                     <div class="col-2">
                     Trainer ID
                     </div>
-                    <div class="col-2">
+                    <!-- <div class="col-2">
                     Pre-requisites
-                    </div>
+                    </div> -->
                 </div>
                 <hr>
 
                 <div class="row">
                     <div class="col-2">
-                    {{ curData.courseID }}
+                    {{class_data.course_id}}
                     </div>
                     <div class="col-2">
-                    {{ curData.classID }}
+                    {{class_data.class_id}}
                     </div>
                     <div class="col-2">
-                    {{ curData.courseName }}
+                    {{class_data.class_creator_id}}
                     </div>
                     <div class="col-2">
-                    {{ curData.trainerName }}
+                    {{class_data.trainer_id}}
                     </div>
-                    <div class="col-2">
-                    {{ curData.trainerID }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.preReq }}
-                    </div>
+                    <!-- <div class="col-2">
+                    Pre-requisites
+                    </div> -->
                 </div>
 
                 <br><br><br>
 
                 <div class="row">
-                    <div class="col-2">
-                    Class Start
-                    </div>
-                    <div class="col-2">
-                    Class End
-                    </div>
                     <div class="col-2">
                     Start Time
                     </div>
@@ -93,21 +82,28 @@
 
                 <div class="row">
                     <div class="col-2">
-                    {{ curData.startDate }}
+                    {{class_data.start_datetime}}
                     </div>
                     <div class="col-2">
-                    {{ curData.endDate }}
+                    {{class_data.end_datetime}}
                     </div>
                     <div class="col-2">
-                    {{ curData.startTime }}
+                    {{class_data.class_size}}
                     </div>
                     <div class="col-2">
-                    {{ curData.endTime }}
                     </div>
-                    <div class="col-2">
-                    {{ curData.classSize }}
+                </div>
+                <br><br><br>
+
+                <div class="row">
+                    <div class="text-start">
+                    Course Description
                     </div>
-                    <div class="col-2">
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="text-start">
+                    {{class_data.course_description}}
                     </div>
                 </div>
 
@@ -133,14 +129,16 @@
 </template>
 
 <script>
+// import axios from 'axios';
 
 export default {
     name:"ItemModal",
-    props: ["curData"],
+    props: ["course_id", "curr_class_id", "class_data"],
     
     data(){
         return{
             enrollmentDone: false,
+            
         }},
 
     methods: {
@@ -153,5 +151,10 @@ export default {
             // alert("You have successfully enrolled in this course!");
         }
     },
+    mounted(){
+
+        // console.log(class_id);
+    
+    }
 }
 </script>

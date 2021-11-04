@@ -1,71 +1,4 @@
 <template>
-  <!-- <div>
-    <div>
-      <h1 class="text-start mb-5">Find Classes</h1>
-    </div>
-    
-        <div class="container">
-          
-            <div class="row">
-              <div class="col-1">
-                Course ID
-              </div>
-              <div class="col-1">
-                Class ID
-              </div>
-              <div class="col-2">
-                Course Name
-              </div>
-              <div class="col-2">
-                Trainer Name
-              </div>
-              <div class="col-2">
-                Pre-requisites
-              </div>
-              <div class="col-2">
-                Start Date
-              </div>
-              <div class="col-1">
-              </div>
-              <div class="col-1">
-              </div>
-            </div>
-            <br>
-
-          <ClassRow
-            v-for="item in items" 
-            :key="item.courseID"
-            v-bind:courseID="item.courseID"
-            v-bind:classID="item.classID"
-            v-bind:courseName="item.courseName"
-            v-bind:trainerName="item.trainerName"
-            v-bind:trainerID="item.trainerID"
-            v-bind:preReq="item.preReq"
-            v-bind:startDate="item.startDate"
-            v-bind:endDate="item.endDate"
-            v-bind:startTime="item.startTime"
-            v-bind:endTime="item.endTime"
-            v-bind:classSize="item.classSize"
-            v-on:toggle="modalOpen"
-          />
-          
-        </div>
-        <div
-          class="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-        <div class="modal-dialog modal-xl">
-          <ItemModal 
-          v-on:toggle="modalClose" v-bind:curData="this.curData" 
-          />
-        </div>
-      </div>
-      </div> -->
     <div class="container d-flex flex-column">
       <h1 class="text-start mb-2 mt-2">Find Courses</h1>
       <h3 class="text-danger" v-if="items == 'error'">⚠ Error! Please refresh page.</h3>
@@ -103,22 +36,15 @@
       
         </div>
     </div>
-     
 </template>
 
 <script>
-// import ItemModal from "@/components/ModalBody.vue";
-// import ItemModal from "../components/ModalEnroll.vue";
-// import ClassRow from "../components/FindCoursesRow.vue";
 import axios from "axios";
 
 
 export default {
   name: "Home",
-  components: {
-    // ItemModal,
-    // ClassRow,
-  },
+  components: {},
   setup() {
     return {};
   },
@@ -127,34 +53,7 @@ export default {
       modalState: false,
       curData: {},
       selected_courseID: "",
-      items: [
-      // {
-      //   courseID: "IS216",
-      //   classID: "G9",
-      //   courseName: "Web App Development",
-      //   trainerName: "Shar",
-      //   trainerID: "SMUF001",
-      //   preReq: "IS211",
-      //   startDate: "01/10/2021",
-      //   endDate: "09/10/2021",
-      //   startTime: "08:15",
-      //   endTime: "11:30",
-      //   classSize: 42
-      // },
-      // {
-      //   courseID: "IS311",
-      //   classID: "G2",
-      //   courseName: "Machine Learning Algo",
-      //   trainerName: "David James",
-      //   trainerID: "SMUF001",
-      //   preReq: "IS301",
-      //   startDate: "03/10/2021",
-      //   endDate: "15/10/2021",
-      //   startTime: "13:00",
-      //   endTime: "15:30",
-      //   classSize: 32
-      // },
-    ]
+      items: [],
     }
   },
   mounted() {
@@ -170,6 +69,7 @@ export default {
     viewClass(id){
       console.log(id)
       this.$router.push({ name: 'Class', params: { course_id: id }})
+
     },
     modalOpen(data) {
       console.log("OPEN MODAL");
@@ -195,7 +95,6 @@ export default {
         console.log(e);
         console.log("Error: This is an invalid move");
       }
-      // this.curData = data;
       this.modalState = !this.modalState;
     },
     modalClose(msg) {
@@ -203,10 +102,6 @@ export default {
       console.log(this.modalState);
       this.modalState = !this.modalState;
       this.curData = {};
-    },
-    goToEnroll() {
-      // this.$router.push("./enroll");
-      return
     },
 
   },
