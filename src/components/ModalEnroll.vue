@@ -101,6 +101,11 @@
                     </div>
                 </div>
                 <hr>
+                <div class="row">
+                    <div class="text-start">
+                    {{class_data.course_description}}
+                    </div>
+                </div>
 
                 <br><br><br>
                 <div class="row">
