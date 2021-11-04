@@ -170,6 +170,7 @@ export default {
     viewClass(id){
       console.log(id)
       this.$router.push({ name: 'Class', params: { course_id: id }})
+
     },
     modalOpen(data) {
       console.log("OPEN MODAL");

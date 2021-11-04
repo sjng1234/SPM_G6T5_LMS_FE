@@ -27,7 +27,7 @@
 
                 <div class="row">
                     <div class="col-2">
-                    Course ID
+                    Course ID 
                     </div>
                     <div class="col-2">
                     Class ID
@@ -46,27 +46,6 @@
                     </div>
                 </div>
                 <hr>
-
-                <div class="row">
-                    <div class="col-2">
-                    {{ curData.courseID }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.classID }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.courseName }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.trainerName }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.trainerID }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.preReq }}
-                    </div>
-                </div>
 
                 <br><br><br>
 
@@ -91,26 +70,6 @@
                 </div>
                 <hr>
 
-                <div class="row">
-                    <div class="col-2">
-                    {{ curData.startDate }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.endDate }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.startTime }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.endTime }}
-                    </div>
-                    <div class="col-2">
-                    {{ curData.classSize }}
-                    </div>
-                    <div class="col-2">
-                    </div>
-                </div>
-
                 <br><br><br>
                 <div class="row">
                     <div class="col-11">
@@ -133,14 +92,16 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
     name:"ItemModal",
-    props: ["curData"],
+    props: ["course_id"],
     
     data(){
         return{
             enrollmentDone: false,
+            class_data: [],
         }},
 
     methods: {
@@ -153,5 +114,16 @@ export default {
             // alert("You have successfully enrolled in this course!");
         }
     },
+    mounted(){
+        let url = `http://127.0.0.1:5000/course/getCourse/` + this.course_id + `/getAllClasses`;
+        axios.get(url).then(response => {
+            console.log(response)
+            this.class_data = response.data
+            console.log(response.data);
+        }).catch((error) => {
+                console.log(error)
+                this.class_data = "error"
+        })
+    }
 }
 </script>

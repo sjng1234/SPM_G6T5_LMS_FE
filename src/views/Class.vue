@@ -25,21 +25,41 @@
                         <td>{{eachClass.class_size}}</td>
                         <td>{{eachClass.start_datetime}}</td>
                         <td>{{eachClass.end_datetime}}</td>
-                        <td><button class="btn btn-primary">Enroll</button></td> 
+                        <td><button class="btn btn-primary" v-on:click="modalOpen" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Enroll</button></td> 
                         <!-- Modal for Enroll here not implemented yet -->
+
                     </tr>
                 </tbody>
             </table>
+            <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+            >
+                <div class="modal-dialog modal-xl">
+                    <ItemModal 
+                    v-on:toggle="modalClose" v-bind:course_id="this.course_id" 
+                    />
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import ItemModal from "../components/ModalEnroll.vue";
 
 export default {
     name: "Class",
+    modalState: false,
     props: ["course_id"],
+    components: {
+        ItemModal
+    },
     setup() {
         return {};
     },
@@ -59,7 +79,21 @@ export default {
                 console.log(error)
                 this.class_data = "error"
         })
-    }
+    },
+    methods: {
+        modalOpen(data){
+            console.log(data);
+            console.log("OPEN MODAL");
+
+            this.modalState = !this.modalState;
+        },
+        modalClose(msg) {
+            console.log(msg);
+            console.log(this.modalState);
+            this.modalState = !this.modalState;
+
+        },
+    },
     };
 </script>
 
