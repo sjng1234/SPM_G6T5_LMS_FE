@@ -32,30 +32,40 @@
                     <div class="col-2">
                     Class ID
                     </div>
-                    <div class="col-2">
-                    Course Name
-                    </div>
+                    
                     <div class="col-2">
                     Trainer Name
                     </div>
                     <div class="col-2">
                     Trainer ID
                     </div>
-                    <div class="col-2">
+                    <!-- <div class="col-2">
                     Pre-requisites
-                    </div>
+                    </div> -->
                 </div>
                 <hr>
+
+                <div class="row">
+                    <div class="col-2">
+                    {{class_data.course_id}}
+                    </div>
+                    <div class="col-2">
+                    {{class_data.class_id}}
+                    </div>
+                    <div class="col-2">
+                    {{class_data.class_creator_id}}
+                    </div>
+                    <div class="col-2">
+                    {{class_data.trainer_id}}
+                    </div>
+                    <!-- <div class="col-2">
+                    Pre-requisites
+                    </div> -->
+                </div>
 
                 <br><br><br>
 
                 <div class="row">
-                    <div class="col-2">
-                    Class Start
-                    </div>
-                    <div class="col-2">
-                    Class End
-                    </div>
                     <div class="col-2">
                     Start Time
                     </div>
@@ -66,6 +76,28 @@
                     Class Size
                     </div>
                     <div class="col-2">
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-2">
+                    {{class_data.start_datetime}}
+                    </div>
+                    <div class="col-2">
+                    {{class_data.end_datetime}}
+                    </div>
+                    <div class="col-2">
+                    {{class_data.class_size}}
+                    </div>
+                    <div class="col-2">
+                    </div>
+                </div>
+                <br><br><br>
+
+                <div class="row">
+                    <div class="text-start">
+                    Course Description
                     </div>
                 </div>
                 <hr>
@@ -92,16 +124,16 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
     name:"ItemModal",
-    props: ["course_id"],
+    props: ["course_id", "curr_class_id", "class_data"],
     
     data(){
         return{
             enrollmentDone: false,
-            class_data: [],
+            
         }},
 
     methods: {
@@ -115,15 +147,9 @@ export default {
         }
     },
     mounted(){
-        let url = `http://127.0.0.1:5000/course/getCourse/` + this.course_id + `/getAllClasses`;
-        axios.get(url).then(response => {
-            console.log(response)
-            this.class_data = response.data
-            console.log(response.data);
-        }).catch((error) => {
-                console.log(error)
-                this.class_data = "error"
-        })
+
+        // console.log(class_id);
+    
     }
 }
 </script>
