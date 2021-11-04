@@ -57,7 +57,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/Class",
+    path: "/Class/:course_id",
     name: "Class",
     component: Class,
     props: true,
