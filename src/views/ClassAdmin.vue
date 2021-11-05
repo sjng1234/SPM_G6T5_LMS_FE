@@ -41,7 +41,7 @@
                             <button v-if="!eachClass.quiz_created" class="btn btn-sm btn-dark" @click="addQuiz(eachClass.course_id,eachClass.class_id)">+Quiz</button>
                             <button v-else class="btn btn-sm btn-outline-primary" @click="viewQuiz(eachClass.course_id,eachClass.class_id)">Quiz</button>
                         </td> 
-                        <td><button class="btn btn-sm btn-secondary">Enrolment</button></td>
+                        <td><button class="btn btn-sm btn-secondary" @click="viewQuiz(eachClass.course_id,eachClass.class_id)">Enrolment</button></td>
                         <td><button class="btn btn-sm btn-outline-danger" @click="deleteClass(eachClass.class_id)">Delete</button></td> 
                     </tr>
                 </tbody>
@@ -100,6 +100,9 @@ export default {
         },
         addQuiz(course_id,class_id){
             this.$router.push({name: 'CreateQuiz', params: {course_id: course_id,course_name: this.course_name, class_id: class_id}})
+        },
+        viewQuiz(course_id,class_id){
+            this.$router.push({name: 'Quiz', params: {course_id: course_id, class_id: class_id}})
         }
     }
     }

@@ -9,6 +9,7 @@ import CreateQuiz from "@/views/CreateQuiz.vue";
 import CourseAdmin from "@/views/CourseAdmin.vue";
 import ClassAdmin from "@/views/ClassAdmin.vue";
 import Class from "@/views/Class.vue";
+import Quiz from "@/views/Quiz.vue";
 
 const routes = [
   {
@@ -60,6 +61,12 @@ const routes = [
     path: "/CreateQuiz/:course_id",
     name: "CreateQuiz",
     component: CreateQuiz,
+    props: true,
+  },
+  {
+    path: "/Quiz/:course_id",
+    name: "Quiz",
+    component: Quiz,
     props: true,
   },
   {
