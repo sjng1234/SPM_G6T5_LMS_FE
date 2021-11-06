@@ -7,7 +7,7 @@ var ls = new SecureLS({ isCompression: false });
 const store = createStore({
   state() {
     return {
-      acc_type: "guest",
+      acc_type: "",
 
     };
   },

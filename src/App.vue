@@ -31,7 +31,7 @@ export default {
   },
   mounted() {
     console.log(store.state.acc_type)
-    if (store.state.acc_type == "guest"){
+    if (store.state.acc_type == ""){
        this.$router.push("/Login")
     }
 
