@@ -44,13 +44,7 @@
                 Learner Name
               </div>
               <div class="col-2">
-                Trainer Name
-              </div>
-              <div class="col-2">
-                Pre-requisites
-              </div>
-              <div class="col-2">
-                Start Date
+                Learner Badges
               </div>
               <div class="col-1">
               </div>
@@ -60,13 +54,15 @@
             <br>
 
             <MyCourses
-            v-for="Learner in Classes" 
-            :key="course.courseID"
+            v-for="user in user" 
+            :key="class.classID"
             v-bind:courseID="course.courseID"
             v-bind:classID="course.classID"
             v-bind:courseName="course.courseName"
             v-bind:trainerName="course.trainerName"
-            v-bind:userID="course.classSize"
+            v-bind:userID="user.userID"
+            v-bind:learnerID="user.learnerID"
+            v-bind:learnername="user.learnername"
             v-bind:chapterDoc="course.chapterDoc"
             v-on:toggle="modalOpen"
           />
