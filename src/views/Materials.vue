@@ -18,14 +18,18 @@
                 <th scope="row">{{chapter.chapter_id}}</th>
                 <td>{{chapter.chapter_name}}</td>
                 <td>
-                    <button @click="toggleAccordion()" class="btn btn-outline-info flex items-center" :aria-expanded="isOpen" :aria-controls="chapter.materials.material_id">
+                    <button @click="toggleAccordion()" class="btn btn-outline-info" :aria-expanded="isOpen" :aria-controls="chapter.materials.material_id">
                         Expand Materials
                     </button>
 
                     <div v-if="isOpen" v-bind:id="chapter.materials.material_id">
-                        <div v-for="material in chapter.materials" v-bind:key="material.material_id">
-                            {{material.material_name}}
-                            <button type="button" class="btn btn-outline-secondary mt-3 mb-3" @click="onDownload()">Download</button><br>
+                        <div v-for="material in chapter.materials" v-bind:key="material.material_id" class="col">
+                            <br>
+                            <div class="row">
+                            <div class="col-6">{{material.material_name}}</div>
+                            <div class="col-6"><button type="button" class="btn btn-outline-secondary" @click="onDownload()">Download</button></div> 
+                            </div>
+                        
                         </div>
                         
                     </div>
@@ -55,10 +59,10 @@ export default {
                     'class_id': 1, 
                     'course_id': 'TEST12311', 
                     'materials': [
-                        {'material_name': "file1",
+                        {'material_name': "VSC.exe",
                         'material_reference' : 'https://auxion.s3.ap-southeast-1.amazonaws.com/events/john-schnobrich-2FPjlAyMQTA-unsplash.jpg',
                         'material_id': 1},
-                        {'material_name': "file2",
+                        {'material_name': "Extensions Guide",
                         'material_reference' : 'https://auxion.s3.ap-southeast-1.amazonaws.com/events/john-schnobrich-2FPjlAyMQTA-unsplash.jpg',
                         'material_id': 2},
                     ]
