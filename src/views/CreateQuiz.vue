@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container m-0 p-0">
         <div v-if="uploaded == true" class="alert alert-success" role="alert">
         ✔ Successfully Uploaded!
         </div>
@@ -42,8 +42,11 @@
 <script>
 import axios from "axios"
 export default {
+    props: ["id"],
     data(){
         return{
+            course_id: "",
+            class_id: "",
             question:[
                 {
                     question_description:"",
@@ -60,9 +63,12 @@ export default {
             uploaded: null
         }
     },
-    computed:{
+    mounted(){
+        var [course_id,class_id] = this.id.split('-')
+        this.course_id = course_id
+        this.class_id = class_id
     },
-    props: ["course_id","course_name","class_id"],
+    
     methods:{
         createQuiz(){
             var data ={
@@ -76,6 +82,9 @@ export default {
             axios.post('http://127.0.0.1:5000/quiz/addQuiz', data).then((response)=>{
                 console.log(response)
                 this.uploaded = true
+                setTimeout(()=>{
+                        this.$router.go(-1);
+                    },1000)
             }).catch((error)=>{
                 console.log(error)
                 this.uploaded = false

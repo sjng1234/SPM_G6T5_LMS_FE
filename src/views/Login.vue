@@ -18,7 +18,7 @@
 export default {
   methods:{
       loginAdmin(){
-          this.$router.push("/");
+          this.$router.push("/CourseAdmin");
           this.$emit('loggedIn','admin')
       },
       loginLearner(){

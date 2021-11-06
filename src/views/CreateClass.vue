@@ -59,7 +59,6 @@ export default {
         },
     },
     mounted(){
-        console.log(this.today)
     },
     methods:{
         createClass(){
@@ -77,8 +76,7 @@ export default {
                     console.log(response)
                     this.uploaded = true
                     setTimeout(()=>{
-                        
-                        this.$router.push({name:'ClassAdmin', params: {course_id: this.course_id}});
+                        this.$router.go(-1);
                     },1000)
                 }).catch((error)=>{
                     console.log(error)

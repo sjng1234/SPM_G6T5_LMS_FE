@@ -31,7 +31,7 @@
                 <tr v-for="course in course_data" v-bind:key="course.course_id">
                 <th scope="row">{{course.course_id}}</th>
                 <td>{{course.course_name}}</td>
-                <td>{{course.date_created}}</td>
+                <td>{{course.date_created.slice(0,-12)}}</td>
                 <td><button class="btn btn-sm btn-primary" @click="viewClass(course.course_id, course.course_name)">View</button></td>
                 <td><button class="btn btn-sm btn-outline-danger" @click="deleteCourse(course.course_id)">Delete</button></td>
                 </tr>
@@ -48,7 +48,7 @@
 
 <script>
 import axios from "axios"
-
+import store from "@/store.js"
 
 export default {
   name: "Home",
@@ -72,6 +72,7 @@ export default {
             console.log(error)
             this.course_data = "error"
       })
+      console.log(store.state.acc_type)
       
   },
   methods: {
