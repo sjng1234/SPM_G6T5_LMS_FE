@@ -116,7 +116,17 @@
           <li><a class="dropdown-item" href="#">Settings</a></li>
           <li><a class="dropdown-item" href="#">Profile</a></li>
           <li><hr class="dropdown-divider" /></li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <div class="text-center">
+          <button
+            name="login-submit"
+            id="login-submit"
+            class="btn btn-danger"
+            style="font-family: 'MuseoSans500'"
+            v-on:click="logOut"
+          >
+            Logout
+          </button>
+        </div>
         </ul>
       </div>
     </div>
@@ -124,11 +134,21 @@
 </template>
 
 <script>
+import store from "@/store.js"
 export default {
   name: "SideMenu",
   setup() {
     return {};
   },
+
+  methods: {
+    logOut() {
+      this.$router.push("/Login");
+      this.$emit('loggedIn', '');
+      store.commit("onLogin", 'guest')
+      
+    }
+  }
 };
 </script>
 

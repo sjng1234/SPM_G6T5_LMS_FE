@@ -15,6 +15,7 @@
 import SideMenu from "@/components/SideMenu.vue";
 import SideMenuAdmin from "@/components/SideMenuAdmin.vue";
 import axios from "axios";
+import store from "@/store.js"
 
 export default {
   name: "App",
@@ -25,11 +26,12 @@ export default {
     return {
       testMsg: "",
       data: "",
-      user: "",
+      user: store.state.acc_type,
     };
   },
   mounted() {
-    if (this.user.length===0){
+    console.log(store.state.acc_type)
+    if (store.state.acc_type == "guest"){
        this.$router.push("/Login")
     }
 
@@ -45,7 +47,8 @@ export default {
     },
   methods:{
     updateLoggedIn(user){
-      this.user=user;
+      store.commit("onLogin",user)
+      this.user=user
     },
   }
 };

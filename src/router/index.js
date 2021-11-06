@@ -58,13 +58,13 @@ const routes = [
     props: true,
   },
   {
-    path: "/CreateQuiz/:course_id",
+    path: "/CreateQuiz/:id",
     name: "CreateQuiz",
     component: CreateQuiz,
     props: true,
   },
   {
-    path: "/Quiz/:course_id",
+    path: "/Quiz/:id",
     name: "Quiz",
     component: Quiz,
     props: true,
@@ -73,12 +73,6 @@ const routes = [
     path: "/Class",
     name: "Class",
     component: Class,
-    props: true,
-  },
-  {
-    path: "/CreateQuiz",
-    name: "CreateQuiz",
-    component: CreateQuiz,
     props: true,
   },
 ];
