@@ -1,41 +1,45 @@
 <template>
   <div class="container d-flex flex-column">
-      <h1 class="text-start mb-2 mt-2">My Classes</h1>
-      <h3 class="text-danger" v-if="items == 'error'">⚠ Error! Please refresh page.</h3>
-      <div v-if="items != 'error' " class="d-flex flex-row justify-content-end button">
-      </div>
-        <div class="container row">
-          <table class="table" v-if="items != 'error'">
-            <thead>
-                <tr>
-                <th scope="col">Course ID</th>
-                <th scope="col">Class ID</th>
-                <th scope="col">Date Enrolled</th>
-                <th scope="col"></th>
-                </tr>
-            </thead>
+    <h1 class="text-start mb-2 mt-2">My Classes</h1>
+    <h3 class="text-danger" v-if="items == 'error'">
+      ⚠ Error! Please refresh page.
+    </h3>
+    <div
+      v-if="items != 'error'"
+      class="d-flex flex-row justify-content-end button"
+    ></div>
+    <div class="container row">
+      <table class="table" v-if="items != 'error'">
+        <thead>
+          <tr>
+            <th scope="col">Course ID</th>
+            <th scope="col">Class ID</th>
+            <th scope="col">Date Enrolled</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
 
-            <tbody>
-                <tr v-if="!items.length">
-                    <th colspan="3">No classes enrolled yet!</th>
-                </tr>
-                <tr v-for="item in items" v-bind:key="item.course_id">
-                <th scope="row">{{item.course_id}}</th>
-                <td>{{item.class_id}}</td>
-                <td>{{item.enrol_date}}</td>
-                <td>
-                    <button class="btn btn-primary" @click="viewMaterials(item.course_id)">Materials</button>
-                </td>
-                </tr>
-                
-            </tbody>
-            </table>
-            
-          
-        
-      
-        </div>
+        <tbody>
+          <tr v-if="!items.length">
+            <th colspan="3">No classes enrolled yet!</th>
+          </tr>
+          <tr v-for="item in items" v-bind:key="item.course_id">
+            <th scope="row">{{ item.course_id }}</th>
+            <td>{{ item.class_id }}</td>
+            <td>{{ item.enrol_date }}</td>
+            <td>
+              <button
+                class="btn btn-primary"
+                @click="viewMaterials(item.course_id)"
+              >
+                Materials
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
   <!-- <div>
     <div>
       <h1 class="text-start mb-5">My Classes</h1>
@@ -109,42 +113,41 @@
 </template>
 
 <script>
-
 import axios from "axios";
 
 export default {
   name: "MyClass",
-  components: {
-
-  },
+  components: {},
   setup() {
     return {};
   },
   data() {
-    
     return {
       modalState: false,
       myData: {},
       items: [],
       learner_id: 2,
-      
-    }
+    };
   },
   mounted() {
     console.log(this.learner_id);
-    let url  = `http://127.0.0.1:5000/learner/getEnrolledClasses/` + this.learner_id;
-    axios.get(url).then(response => {
-          console.log(response)
-          this.items = response.data
-      }).catch((error) => {
-            console.log(error)
-            this.items = "error"
+    let url =
+      `http://127.0.0.1:5000/learner/getEnrolledClasses/` + this.learner_id;
+    axios
+      .get(url)
+      .then((response) => {
+        console.log(response);
+        this.items = response.data;
       })
+      .catch((error) => {
+        console.log(error);
+        this.items = "error";
+      });
   },
   methods: {
-    viewMaterials(id){
+    viewMaterials(id) {
       console.log(id);
-      this.$router.push({ name: 'Materials', params: { course_id: id }})
+      this.$router.push({ name: "Materials", params: { course_id: id } });
     },
     modalOpen(data) {
       console.log("OPEN MODAL");
@@ -163,10 +166,10 @@ export default {
           startTime: data.startTime,
           endTime: data.endTime,
           classSize: data.classSize,
-          chapterDoc: data.chapterDoc
-        }
+          chapterDoc: data.chapterDoc,
+        };
         console.log(this.myData);
-      } catch(e) {
+      } catch (e) {
         console.log(e);
         console.log("Error: This is an invalid move");
       }

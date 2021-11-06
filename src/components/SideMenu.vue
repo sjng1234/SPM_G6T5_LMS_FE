@@ -125,7 +125,7 @@
             height="30"
             class="rounded-circle"
           />
-          <span class="d-none d-sm-inline mx-1">loser</span>
+          <span class="d-none d-sm-inline mx-1">{{this.$store.state.acc_type}}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
           <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -133,16 +133,16 @@
           <li><a class="dropdown-item" href="#">Profile</a></li>
           <li><hr class="dropdown-divider" /></li>
           <div class="text-center">
-          <button
-            name="login-submit"
-            id="login-submit"
-            class="btn btn-danger"
-            style="font-family: 'MuseoSans500'"
-            v-on:click="logOut"
-          >
-            Logout
-          </button>
-        </div>
+            <button
+              name="login-submit"
+              id="login-submit"
+              class="btn btn-danger"
+              style="font-family: 'MuseoSans500'"
+              v-on:click="logOut"
+            >
+              Logout
+            </button>
+          </div>
         </ul>
       </div>
     </div>
@@ -150,7 +150,7 @@
 </template>
 
 <script>
-import store from "@/store.js"
+import store from "@/store.js";
 export default {
   name: "SideMenu",
   setup() {
@@ -160,11 +160,10 @@ export default {
   methods: {
     logOut() {
       this.$router.push("/Login");
-      this.$emit('loggedIn', '');
-      store.commit("onLogin", '')
-      
-    }
-  }
+      this.$emit("loggedIn", "");
+      store.commit("onLogin", "");
+    },
+  },
 };
 </script>
 
