@@ -8,7 +8,6 @@ const store = createStore({
   state() {
     return {
       acc_type: "",
-
     };
   },
 
