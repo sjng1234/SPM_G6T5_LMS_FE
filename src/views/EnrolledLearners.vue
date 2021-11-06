@@ -60,19 +60,13 @@
             <br>
 
             <MyCourses
-            v-for="course in courses" 
+            v-for="Learner in Classes" 
             :key="course.courseID"
             v-bind:courseID="course.courseID"
             v-bind:classID="course.classID"
             v-bind:courseName="course.courseName"
             v-bind:trainerName="course.trainerName"
-            v-bind:trainerID="course.trainerID"
-            v-bind:preReq="course.preReq"
-            v-bind:startDate="course.startDate"
-            v-bind:endDate="course.endDate"
-            v-bind:startTime="course.startTime"
-            v-bind:endTime="course.endTime"
-            v-bind:classSize="course.classSize"
+            v-bind:userID="course.classSize"
             v-bind:chapterDoc="course.chapterDoc"
             v-on:toggle="modalOpen"
           />
