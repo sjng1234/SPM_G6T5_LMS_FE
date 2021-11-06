@@ -56,7 +56,7 @@
         <!-- My Classes -->
         <li>
           <router-link
-            to="/CreateQuiz"
+            to="/MyClass"
             class="
               nav-link
               px-0

@@ -10,6 +10,7 @@ import CourseAdmin from "@/views/CourseAdmin.vue";
 import ClassAdmin from "@/views/ClassAdmin.vue";
 import Class from "@/views/Class.vue";
 import Quiz from "@/views/Quiz.vue";
+import Materials from "@/views/Materials.vue";
 
 const routes = [
   {
@@ -79,6 +80,18 @@ const routes = [
     path: "/CreateQuiz",
     name: "CreateQuiz",
     component: CreateQuiz,
+    props: true,
+  },
+  {
+    path: "/Quiz",
+    name: "Quiz",
+    component: Quiz,
+    props: true,
+  },
+  {
+    path: "/Materials",
+    name: "Materials",
+    component: Materials,
     props: true,
   },
 ];
