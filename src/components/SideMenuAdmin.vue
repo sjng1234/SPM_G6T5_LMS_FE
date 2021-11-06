@@ -145,7 +145,7 @@ export default {
     logOut() {
       this.$router.push("/Login");
       this.$emit('loggedIn', '');
-      store.commit("onLogin", 'guest')
+      store.commit("onLogin", '')
       
     }
   }
