@@ -10,6 +10,7 @@ import CourseAdmin from "@/views/CourseAdmin.vue";
 import ClassAdmin from "@/views/ClassAdmin.vue";
 import Class from "@/views/Class.vue";
 import Quiz from "@/views/Quiz.vue";
+import Materials from "@/views/Materials.vue";
 
 const routes = [
   {
@@ -73,6 +74,12 @@ const routes = [
     path: "/Class",
     name: "Class",
     component: Class,
+    props: true,
+  },
+  {
+    path: "/Materials/:course_id",
+    name: "Materials",
+    component: Materials,
     props: true,
   },
 ];
