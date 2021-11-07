@@ -55,7 +55,7 @@
 
             <MyCourses
             v-for="user in user" 
-            :key="class.classID"
+            :key="course.classID"
             v-bind:courseID="course.courseID"
             v-bind:classID="course.classID"
             v-bind:courseName="course.courseName"
@@ -63,7 +63,6 @@
             v-bind:userID="user.userID"
             v-bind:learnerID="user.learnerID"
             v-bind:learnername="user.learnername"
-            v-bind:chapterDoc="course.chapterDoc"
             v-on:toggle="modalOpen"
           />
         </div>
@@ -158,14 +157,9 @@ export default {
           classID: data.classID,
           courseName: data.courseName,
           trainerName: data.trainerName,
-          trainerID: data.trainerID,
-          preReq: data.preReq,
-          startDate: data.startDate,
-          endDate: data.endDate,
-          startTime: data.startTime,
-          endTime: data.endTime,
-          classSize: data.classSize,
-          chapterDoc: data.chapterDoc
+          userID: data.userID,
+          learnerID: data.learnerID,
+          learnerName: data.learnerName
         }
         console.log(this.myData);
       } catch(e) {
