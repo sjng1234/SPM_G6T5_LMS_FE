@@ -13,6 +13,7 @@ import ChapterAdmin from "@/views/ChapterAdmin.vue";
 import Class from "@/views/Class.vue";
 import Quiz from "@/views/Quiz.vue";
 import Materials from "@/views/Materials.vue";
+import Profile from "@/views/Profile.vue";
 
 const routes = [
   {
@@ -94,6 +95,12 @@ const routes = [
     path: "/Materials/:course_id",
     name: "Materials",
     component: Materials,
+    props: true,
+  },
+  {
+    path: "/Profile/:id",
+    name: "Profile",
+    component: Profile,
     props: true,
   },
 ];
