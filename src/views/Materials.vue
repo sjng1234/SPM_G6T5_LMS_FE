@@ -74,52 +74,21 @@ export default {
   data() {
     return {
       isOpen: false,
-      materials_data: [
-        {
-          chapter_id: 1,
-          chapter_name: "Setting up VSC",
-          class_id: 1,
-          course_id: "TEST12311",
-          materials: [
-            {
-              material_name: "VSC.exe",
-              material_reference:
-                "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
-              material_id: 1,
-            },
-            {
-              material_name: "Extensions Guide",
-              material_reference:
-                "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
-              material_id: 2,
-            },
-          ],
-        },
-        {
-          chapter_id: 2,
-          chapter_name: "Downloading VSC Extensions",
-          class_id: 1,
-          course_id: "TEST12311",
-          materials: [
-            {
-              material_name: "file3",
-              material_reference:
-                "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
-              material_id: 1,
-            },
-            {
-              material_name: "file4",
-              material_reference:
-                "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
-              material_id: 2,
-            },
-          ],
-        },
-      ],
+      materials_data: [],
     };
   },
   mounted() {
-    // let url = `http://127.0.0.1:5000/chapter/` + this.course_id + `/`
+    let url = `http://127.0.0.1:5000/classes/getChapters/${this.course_id}-${this.class_id}`
+    axios
+      .get(url)
+      .then((response) => {
+        console.log(response);
+        this.materials_data = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        this.materials_data = "error";
+      });
   },
   methods: {
     onDownload() {
