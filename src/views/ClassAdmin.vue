@@ -89,7 +89,7 @@
             <td>
               <button
                 class="btn btn-sm btn-secondary"
-                @click="viewQuiz(eachClass.course_id, eachClass.class_id)"
+                @click="enrolment(eachClass.course_id, eachClass.class_id)"
               >
                 Enrolment
               </button>
@@ -191,6 +191,10 @@ export default {
     viewClass(course_id, class_id) {
       var id = course_id + "-" + class_id;
       this.$router.push({ name: "ChapterAdmin", params: { id: id } });
+    },
+    enrolment(course_id, class_id) {
+      var id = course_id + "-" + class_id;
+      this.$router.push({ name: "EnrolledLearners", params: { id: id } });
     },
   },
 };

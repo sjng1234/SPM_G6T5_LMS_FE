@@ -162,7 +162,7 @@ export default {
     logOut() {
       this.$router.push("/Login");
       this.$emit("loggedIn", "");
-      store.commit("onLogin", "");
+      store.commit("onLogin", "", 0);
     },
   },
 };

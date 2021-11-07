@@ -77,6 +77,7 @@ export default {
     };
   },
   mounted() {
+    console.log(store.state)
     axios
       .get("http://127.0.0.1:5000/course/getAll")
       .then((response) => {

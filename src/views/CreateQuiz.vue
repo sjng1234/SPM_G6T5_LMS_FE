@@ -130,7 +130,8 @@ export default {
         quiz_id: 1,
         duration: this.duration,
       };
-
+    var success = confirm("Are you sure you want to create this quiz?")
+    if(success){
       axios
         .post("http://127.0.0.1:5000/quiz/addQuiz", data)
         .then((response) => {
@@ -143,7 +144,7 @@ export default {
         .catch((error) => {
           console.log(error);
           this.uploaded = false;
-        });
+        });}
     },
     addQn() {
       console.log(this.question);

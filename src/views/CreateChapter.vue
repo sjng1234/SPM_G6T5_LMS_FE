@@ -70,8 +70,7 @@ export default {
       chapter_id: "",
       chapter_name: "",
       material_name: "",
-      material_reference:
-        "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
+      material_reference:"https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
       uploaded: null,
       all_courses: {},
       selected_prereq: [],

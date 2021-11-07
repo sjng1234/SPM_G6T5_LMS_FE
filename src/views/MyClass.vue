@@ -76,10 +76,9 @@ export default {
       });
   },
   methods: {
-    viewMaterials(id1, id2) {
-      console.log(id1);
-      console.log(id2);
-      this.$router.push({ name: "Materials", params: { course_id: id1, class_id: id2 } });
+    viewMaterials(course_id, class_id) {
+      var id = course_id + "-" + class_id;
+      this.$router.push({ name: "Materials", params: { id: id } });
     },
     modalOpen(data) {
       console.log("OPEN MODAL");
