@@ -9,7 +9,7 @@
     <h1>Create Class</h1>
 
     <form class="container-fluid p-5" onsubmit="return false;">
-      <h4 class="text-primary">{{ course_id }}: {{ course_name }}</h4>
+      <h4 class="text-primary">{{ course_id }}</h4>
       <div class="input-group mb-3 mt-2">
         <span class="input-group-text" id="basic-addon1">Class Size</span>
         <input
@@ -99,7 +99,8 @@ export default {
           class_size: this.class_size,
           trainer_id: this.trainer_id,
         };
-
+        var success = confirm("Are you sure you want to create this class?")
+        if(success){
         axios
           .post("http://127.0.0.1:5000/classes/add", course_data)
           .then((response) => {
@@ -112,7 +113,7 @@ export default {
           .catch((error) => {
             console.log(error);
             this.uploaded = false;
-          });
+          });}
       }
     },
   },

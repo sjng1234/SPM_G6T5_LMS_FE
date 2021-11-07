@@ -10,6 +10,7 @@ import CreateChapter from "@/views/CreateChapter.vue";
 import CourseAdmin from "@/views/CourseAdmin.vue";
 import ClassAdmin from "@/views/ClassAdmin.vue";
 import ChapterAdmin from "@/views/ChapterAdmin.vue";
+import EnrolledLearners from "@/views/EnrolledLearners.vue";
 import Class from "@/views/Class.vue";
 import Quiz from "@/views/Quiz.vue";
 import Materials from "@/views/Materials.vue";
@@ -56,7 +57,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/CreateClass",
+    path: "/CreateClass/:course_id",
     name: "CreateClass",
     component: CreateClass,
     props: true,
@@ -92,7 +93,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/Materials/:course_id",
+    path: "/Materials/:id",
     name: "Materials",
     component: Materials,
     props: true,
@@ -101,6 +102,12 @@ const routes = [
     path: "/Profile/:id",
     name: "Profile",
     component: Profile,
+    props: true,
+  },
+  {
+    path: "/EnrolledLearners/:id",
+    name: "EnrolledLearners",
+    component: EnrolledLearners,
     props: true,
   },
 ];

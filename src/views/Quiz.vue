@@ -140,17 +140,32 @@ export default {
                 correct++;
               }
             }
-            var wrong = total - correct;
             var passing = Math.ceil(0.85 * total);
             this.results = {
               correct: correct,
               pass: correct >= passing ? true : false,
               total: total,
             };
-            console.log(passing);
-            console.log("Total:", total);
-            console.log("Correct:", correct);
-            console.log("Wrong:", wrong);
+            
+
+
+            if(this.results.pass){
+                var data = {
+                    learner_id: store.state.user_id,
+                    course_id: this.course_id,
+                    is_qualified: true,
+                }
+                axios.post('http://127.0.0.1:5000/learner/addBadge',data).then(()=>{
+                    alert(`Congratulations! You have passed the quiz and completed the course!`);
+                }).catch((error)=>{
+                    alert(`You have already passed the quiz and completed the course! Your score will not be recorded.`);
+                    console.log(error);
+                })
+                
+            }
+            else{
+              alert(`You have failed the quiz!`);
+            }
           })
           .catch((error) => {
             console.log(error);

@@ -67,17 +67,24 @@ import axios from "axios";
 
 export default {
   name: "Materials",
-  props: ["course_id", "class_id"],
+  props: ["id"],
   setup() {
     return {};
   },
   data() {
     return {
+      course_id: "",
+      class_id: "",
       openState: {},
       materials_data: [],
     };
   },
   mounted() {
+    
+    var [course_id, class_id] = this.id.split("-");
+    this.course_id = course_id;
+    this.class_id = class_id;
+
     let url = `http://127.0.0.1:5000/classes/getChapters/${this.course_id}-${this.class_id}`
     axios
       .get(url)
@@ -116,8 +123,10 @@ export default {
     },
 
     goToQuiz() {
-      this.$router.push(`/Quiz/` + this.course_id + `-` + this.class_id)
+      var id = this.course_id + "-" + this.class_id;
+      this.$router.push({ name: "Quiz", params: { id: id } });
     },
+    
   },
 };
 </script>
