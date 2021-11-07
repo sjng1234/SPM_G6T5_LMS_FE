@@ -128,9 +128,8 @@
           <span class="d-none d-sm-inline mx-1">{{this.$store.state.acc_type}}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <!-- Hardcoded Router Link to Learner's Profile with the created user's ID , will use VueX to store user's id in subsequent implementations -->
+          <li><router-link :to="{ name: 'Profile', params: { id: this.$store.state.acc_type=='learner'? 2 : this.$store.state.acc_type=='trainer'? 3 : 1 } }" class="dropdown-item">Profile</router-link></li>
           <li><hr class="dropdown-divider" /></li>
           <div class="text-center">
             <button

@@ -97,9 +97,6 @@ export default {
     checkCourse() {
       return this.checkEnrolledCourse();
     },
-    checkClass(id){
-      return this.checkEnrolledClass(id);
-    }
   },
   mounted() {
     // console.log(this.course_id)
