@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid">
     <h1 class="text-center">{{ course_id }}-{{ class_id }} Quiz</h1>
+    <h3 class="text-center">{{ description }}</h3>
     <div
       class="d-flex mt-3 mx-5 flex-column align-items-start"
       v-for="question in questions.question"
@@ -72,6 +73,7 @@ export default {
     return {
       course_id: "",
       class_id: "",
+      description: "",
       options: [],
       questions: [],
       answer_sheet: {},
@@ -79,6 +81,8 @@ export default {
       submitted: false,
       answers: [],
       results: {},
+
+      course_data: [],
     };
   },
   mounted() {
@@ -91,6 +95,7 @@ export default {
       )
       .then((response) => {
         this.questions = response.data;
+        console.log(response.data);
         response.data.question.forEach((question, index) => {
           var count = index + 1;
           this.answer_sheet["q" + count] = null;
@@ -101,6 +106,19 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+    axios 
+      .get(
+        `http://127.0.0.1:5000/course/getCourse/${this.course_id}`
+      )
+      .then((response) => {
+        this.course_data = response.data;
+        this.description = this.course_data.course_description;
+        console.log(this.description);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   },
   methods: {
     async submitAnswer() {

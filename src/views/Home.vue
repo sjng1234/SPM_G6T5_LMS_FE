@@ -26,7 +26,7 @@
           <tr v-for="item in items" v-bind:key="item.course_id">
             <th scope="row">{{ item.course_id }}</th>
             <td>{{ item.course_name }}</td>
-            <td>{{ item.date_created }}</td>
+            <td>{{ item.date_created.slice(0, -12) }}</td>
             <td>
               <button
                 class="btn btn-primary"
