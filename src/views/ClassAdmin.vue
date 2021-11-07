@@ -60,73 +60,89 @@
             </table>
         </div>
     </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-    name: "Class",
-    props: ["course_id","course_name"],
-    setup() {
-        return {};
-    },
-    data() {
-        return {
-            class_data: [],
-            isDeleted: null,
-            preReq: [],
-            
-        }
-    },
-    mounted(){
-        // console.log("course_id: " + this.course_id)
-        if(!this.class_data.length){        
-            let url = `http://127.0.0.1:5000/course/getCourse/` + this.course_id + `/getAllClasses`;
-            axios.get(url).then(response => {
-                console.log(response)
-                this.class_data = response.data
-            }).catch((error) => {
-                    console.log(error)
-                    this.class_data = "error"
+  name: "Class",
+  props: ["course_id", "course_name"],
+  setup() {
+    return {};
+  },
+  data() {
+    return {
+      class_data: [],
+      isDeleted: null,
+      preReq: [],
+    };
+  },
+  mounted() {
+    // console.log("course_id: " + this.course_id)
+    if (!this.class_data.length) {
+      let url =
+        `http://127.0.0.1:5000/course/getCourse/` +
+        this.course_id +
+        `/getAllClasses`;
+      axios
+        .get(url)
+        .then((response) => {
+          console.log(response);
+          this.class_data = response.data;
         })
-            let preq = `http://127.0.0.1:5000/course/${this.course_id}/getPreReq`;
-            axios.get(preq).then(response => {
-                console.log(response.data)
-                this.preReq = response.data[`Pre-Requisites-List`]
-            }).catch((error) => {
-                    console.log(error)
-                    this.preReq = []
+        .catch((error) => {
+          console.log(error);
+          this.class_data = "error";
+        });
+      let preq = `http://127.0.0.1:5000/course/${this.course_id}/getPreReq`;
+      axios
+        .get(preq)
+        .then((response) => {
+          console.log(response.data);
+          this.preReq = response.data[`Pre-Requisites-List`];
         })
-            
-        
-        }
+        .catch((error) => {
+          console.log(error);
+          this.preReq = [];
+        });
+    }
+  },
+  methods: {
+    createClass() {
+      this.$router.push({
+        name: "CreateClass",
+        params: { course_id: this.course_id, course_name: this.course_name },
+      });
     },
-    methods: {
-        createClass(){
-            this.$router.push({name: 'CreateClass', params: {course_id: this.course_id, course_name: this.course_name}})
-        },
-        
-        deleteClass(class_id){
-            
-            var id = this.course_id + "-" + class_id
-            var sure = confirm(`Are you sure you want to delete this class (${id})?`)
-            if(sure){
-            axios.delete(`http://127.0.0.1:5000/classes/delete/${id}`)
-            .then((response) => {
-                console.log(response)
-                location.reload();
-                this.isDeleted = true
-            })
-            .catch((error) => {
-                console.log(error)
-                this.isDeleted = false})}
-        },
-        addQuiz(course_id,class_id){
-            var id = course_id + "-" + class_id
-            this.$router.push({name: 'CreateQuiz', params: {id: id}})
-        },
-        viewQuiz(course_id,class_id){
+
+    deleteClass(class_id) {
+      var id = this.course_id + "-" + class_id;
+      var sure = confirm(`Are you sure you want to delete this class (${id})?`);
+      if (sure) {
+        axios
+          .delete(`http://127.0.0.1:5000/classes/delete/${id}`)
+          .then((response) => {
+            console.log(response);
+            location.reload();
+            this.isDeleted = true;
+          })
+          .catch((error) => {
+            console.log(error);
+            this.isDeleted = false;
+          });
+      }
+    },
+    addQuiz(course_id, class_id) {
+      var id = course_id + "-" + class_id;
+      this.$router.push({ name: "CreateQuiz", params: { id: id } });
+    },
+    viewQuiz(course_id, class_id) {
+      var id = course_id + "-" + class_id;
+      this.$router.push({ name: "Quiz", params: { id: id } });
+    },
+    viewQuiz(course_id,class_id){
             var id = course_id + "-" + class_id
             this.$router.push({name: 'Quiz', params: {id: id}})
         },
@@ -135,8 +151,8 @@ export default {
             this.$router.push({name: 'ChapterAdmin', params: {id: id}})
         }
     }
-    }
-
+  
+};
 </script>
 
 <style scoped></style>
