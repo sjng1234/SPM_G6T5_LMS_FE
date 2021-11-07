@@ -148,7 +148,7 @@ export default {
       }
     },
     removeOptions() {
-      this.selected_prereq = null;
+      this.selected_prereq = [];
     },
   },
 };

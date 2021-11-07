@@ -23,8 +23,8 @@
             <td>{{ eachClass.class_creator_id }}</td>
             <td>{{ eachClass.trainer_id }}</td>
             <td>{{ eachClass.class_size }}</td>
-            <td>{{ eachClass.start_datetime }}</td>
-            <td>{{ eachClass.end_datetime }}</td>
+            <td>{{ eachClass.start_datetime.slice(0, -12) }}</td>
+            <td>{{ eachClass.end_datetime.slice(0, -12) }}</td>
             <td>
               <button
                 class="btn btn-primary"
@@ -97,6 +97,9 @@ export default {
     checkCourse() {
       return this.checkEnrolledCourse();
     },
+    checkClass(id) {
+      return this.checkEnrolledClass(id);
+    },
   },
   mounted() {
     // console.log(this.course_id)
@@ -160,8 +163,8 @@ export default {
           let enrolled = [];
           response.data.forEach((c) => {
             enrolled.push({
-              'class_id': c.class_id,
-              'course_id': c.course_id,
+              class_id: c.class_id,
+              course_id: c.course_id,
             });
           });
           this.enrolled_classes = enrolled;

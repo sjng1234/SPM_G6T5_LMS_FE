@@ -46,7 +46,7 @@
             <th scope="col">Class Size</th>
             <th scope="col">Start Time</th>
             <th scope="col">End Time</th>
-            <th colspan="3"></th>
+            <th colspan="4"></th>
           </tr>
         </thead>
 
@@ -63,6 +63,14 @@
             <td>{{ eachClass.end_datetime.slice(0, -12) }}</td>
             <td>
               <button
+                class="btn btn-sm btn-primary"
+                @click="viewClass(eachClass.course_id, eachClass.class_id)"
+              >
+                View
+              </button>
+            </td>
+            <td>
+              <button
                 v-if="!eachClass.quiz_created"
                 class="btn btn-sm btn-dark"
                 @click="addQuiz(eachClass.course_id, eachClass.class_id)"
@@ -77,6 +85,7 @@
                 Quiz
               </button>
             </td>
+
             <td>
               <button
                 class="btn btn-sm btn-secondary"
@@ -178,6 +187,10 @@ export default {
     viewQuiz(course_id, class_id) {
       var id = course_id + "-" + class_id;
       this.$router.push({ name: "Quiz", params: { id: id } });
+    },
+    viewClass(course_id, class_id) {
+      var id = course_id + "-" + class_id;
+      this.$router.push({ name: "ChapterAdmin", params: { id: id } });
     },
   },
 };

@@ -1,7 +1,14 @@
 <template>
   <div class="container d-flex flex-column">
-    <h1 class="text-start mb-2 mt-2">{{ course_id }} Materials</h1>
+    <h1 class="text-start mb-2 mt-2">{{ course_id }}-{{class_id}} Materials</h1>
+
+    <div>
+      <button class="btn btn-primary d-flex mb-2 mt-2" @click="goToQuiz()">Take Quiz</button>
+    </div> 
+  
   </div>
+
+  
 
   <div class="container row">
     <table class="table">
@@ -60,7 +67,7 @@ import axios from "axios";
 
 export default {
   name: "Materials",
-  props: ["course_id"],
+  props: ["course_id", "class_id"],
   setup() {
     return {};
   },
@@ -77,13 +84,13 @@ export default {
             {
               material_name: "VSC.exe",
               material_reference:
-                "https://auxion.s3.ap-southeast-1.amazonaws.com/events/john-schnobrich-2FPjlAyMQTA-unsplash.jpg",
+                "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
               material_id: 1,
             },
             {
               material_name: "Extensions Guide",
               material_reference:
-                "https://auxion.s3.ap-southeast-1.amazonaws.com/events/john-schnobrich-2FPjlAyMQTA-unsplash.jpg",
+                "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
               material_id: 2,
             },
           ],
@@ -97,13 +104,13 @@ export default {
             {
               material_name: "file3",
               material_reference:
-                "https://auxion.s3.ap-southeast-1.amazonaws.com/events/john-schnobrich-2FPjlAyMQTA-unsplash.jpg",
+                "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
               material_id: 1,
             },
             {
               material_name: "file4",
               material_reference:
-                "https://auxion.s3.ap-southeast-1.amazonaws.com/events/john-schnobrich-2FPjlAyMQTA-unsplash.jpg",
+                "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
               material_id: 2,
             },
           ],
@@ -117,7 +124,7 @@ export default {
   methods: {
     onDownload() {
       axios({
-        url: "https://auxion.s3.ap-southeast-1.amazonaws.com/events/john-schnobrich-2FPjlAyMQTA-unsplash.jpg",
+        url: "https://auxion.s3.ap-southeast-1.amazonaws.com/Materials.zip",
         method: "GET",
         responseType: "blob",
       }).then((response) => {
@@ -125,7 +132,7 @@ export default {
         var fileLink = document.createElement("a");
 
         fileLink.href = fileURL;
-        fileLink.setAttribute("download", "image.jpg");
+        fileLink.setAttribute("download", "materials.zip");
         document.body.appendChild(fileLink);
 
         fileLink.click();
@@ -134,6 +141,10 @@ export default {
 
     toggleAccordion() {
       this.isOpen = !this.isOpen;
+    },
+
+    goToQuiz() {
+      this.$router.push(`/Quiz/` + this.course_id + `-` + this.class_id)
     },
   },
 };

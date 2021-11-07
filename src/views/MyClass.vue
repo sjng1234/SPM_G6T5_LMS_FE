@@ -26,11 +26,11 @@
           <tr v-for="item in items" v-bind:key="item.course_id">
             <th scope="row">{{ item.course_id }}</th>
             <td>{{ item.class_id }}</td>
-            <td>{{ item.enrol_date }}</td>
+            <td>{{ item.enrol_date.slice(0, -12) }}</td>
             <td>
               <button
                 class="btn btn-primary"
-                @click="viewMaterials(item.course_id)"
+                @click="viewMaterials(item.course_id, item.class_id)"
               >
                 Materials
               </button>
@@ -40,76 +40,7 @@
       </table>
     </div>
   </div>
-  <!-- <div>
-    <div>
-      <h1 class="text-start mb-5">My Classes</h1>
-    </div>
-    
-        <div class="container">
-          
-            <div class="row">
-              <div class="col-1">
-                Course ID
-              </div>
-              <div class="col-1">
-                Class ID
-              </div>
-              <div class="col-2">
-                Course Name
-              </div>
-              <div class="col-2">
-                Trainer Name
-              </div>
-              <div class="col-2">
-                Pre-requisites
-              </div>
-              <div class="col-2">
-                Start Date
-              </div>
-              <div class="col-1">
-              </div>
-              <div class="col-1">
-              </div>
-            </div>
-            <br>
 
-            <MyCourses
-            v-for="course in courses" 
-            :key="course.courseID"
-            v-bind:courseID="course.courseID"
-            v-bind:classID="course.classID"
-            v-bind:courseName="course.courseName"
-            v-bind:trainerName="course.trainerName"
-            v-bind:trainerID="course.trainerID"
-            v-bind:preReq="course.preReq"
-            v-bind:startDate="course.startDate"
-            v-bind:endDate="course.endDate"
-            v-bind:startTime="course.startTime"
-            v-bind:endTime="course.endTime"
-            v-bind:classSize="course.classSize"
-            v-bind:chapterDoc="course.chapterDoc"
-            v-on:toggle="modalOpen"
-          />
-        </div>
-
-        <div
-          class="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-        <div class="modal-dialog modal-xl">
-          <MaterialsModal 
-          v-on:toggle="modalClose" v-bind:myData="this.myData" 
-          />
-        </div>
-        </div>
-
-
-  </div> -->
 </template>
 
 <script>
@@ -145,9 +76,10 @@ export default {
       });
   },
   methods: {
-    viewMaterials(id) {
-      console.log(id);
-      this.$router.push({ name: "Materials", params: { course_id: id } });
+    viewMaterials(id1, id2) {
+      console.log(id1);
+      console.log(id2);
+      this.$router.push({ name: "Materials", params: { course_id: id1, class_id: id2 } });
     },
     modalOpen(data) {
       console.log("OPEN MODAL");

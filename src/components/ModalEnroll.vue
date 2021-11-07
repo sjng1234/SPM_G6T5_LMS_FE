@@ -100,7 +100,7 @@
                 class="btn btn-primary"
                 @click="confirmEnroll()"
               >
-                {{status?"Drop Class":"Enrol Now"}}
+                {{ status ? "Drop Class" : "Enrol Now" }}
               </button>
             </div>
             <div v-else>
@@ -142,10 +142,10 @@ export default {
     },
     confirmEnroll() {
       this.$emit("enrol", {
-        "course_id": this.course_id,
-        "class_id": this.class_data.class_id,
-        "status": this.status,
-        "learner_id": 2,
+        course_id: this.course_id,
+        class_id: this.class_data.class_id,
+        status: this.status,
+        learner_id: 2,
       });
       this.actionDone = !this.actionDone;
     },

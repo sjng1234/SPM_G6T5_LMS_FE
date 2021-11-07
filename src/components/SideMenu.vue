@@ -125,7 +125,9 @@
             height="30"
             class="rounded-circle"
           />
-          <span class="d-none d-sm-inline mx-1">{{this.$store.state.acc_type}}</span>
+          <span class="d-none d-sm-inline mx-1">{{
+            this.$store.state.acc_type
+          }}</span>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
           <!-- Hardcoded Router Link to Learner's Profile with the created user's ID , will use VueX to store user's id in subsequent implementations -->
