@@ -3,87 +3,60 @@
     <div>
       <h1 class="text-start mb-5">Enrolled learners</h1>
     </div>
-    
-        <div class="container">
-          
-            <div class="row">
-              <div class="col-1">
-                Course ID
-              </div>
-              <div class="col-1">
-                Course Name
-              </div>
-              <div class="col-2">
-                Class ID
-              </div>
-              <div class="col-2">
-                Trainer Name
-              </div>
-              <div class="col-1">
-              </div>
-              <div class="col-1">
-              </div>
-            </div>
-            <br>
 
-        </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-1">Course ID</div>
+        <div class="col-1">Course Name</div>
+        <div class="col-2">Class ID</div>
+        <div class="col-2">Trainer Name</div>
+        <div class="col-1"></div>
+        <div class="col-1"></div>
+      </div>
+      <br />
+    </div>
 
-        <br>
-        <br>
+    <br />
+    <br />
 
-        <div class="container">
-          
-            <div class="row">
-              <div class="col-1">
-                User ID
-              </div>
-              <div class="col-1">
-                Learner ID
-              </div>
-              <div class="col-2">
-                Learner Name
-              </div>
-              <div class="col-2">
-                Learner Badges
-              </div>
-              <div class="col-1">
-              </div>
-              <div class="col-1">
-              </div>
-            </div>
-            <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-1">User ID</div>
+        <div class="col-1">Learner ID</div>
+        <div class="col-2">Learner Name</div>
+        <div class="col-2">Learner Badges</div>
+        <div class="col-1"></div>
+        <div class="col-1"></div>
+      </div>
+      <br />
 
-            <MyCourses
-            v-for="user in user" 
-            :key="course.classID"
-            v-bind:courseID="course.courseID"
-            v-bind:classID="course.classID"
-            v-bind:courseName="course.courseName"
-            v-bind:trainerName="course.trainerName"
-            v-bind:userID="user.userID"
-            v-bind:learnerID="user.learnerID"
-            v-bind:learnername="user.learnername"
-            v-on:toggle="modalOpen"
-          />
-        </div>
+      <MyCourses
+        v-for="user in user"
+        v-bind:key="user.classID"
+        v-bind:courseID="course.courseID"
+        v-bind:classID="course.classID"
+        v-bind:courseName="course.courseName"
+        v-bind:trainerName="course.trainerName"
+        v-bind:userID="user.userID"
+        v-bind:learnerID="user.learnerID"
+        v-bind:learnername="user.learnername"
+        v-on:toggle="modalOpen"
+      />
+    </div>
 
-        <div
-          class="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-        <div class="modal-dialog modal-xl">
-          <MaterialsModal 
-          v-on:toggle="modalClose" v-bind:myData="this.myData" 
-          />
-        </div>
-        </div>
-
-
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
+        <MaterialsModal v-on:toggle="modalClose" v-bind:myData="this.myData" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -101,7 +74,6 @@ export default {
     return {};
   },
   data() {
-    
     return {
       modalState: false,
       myData: {},
@@ -121,9 +93,9 @@ export default {
           // HEIN: HAVENT DECIDE HOW I WANT TO DISPLAY THE CHAPTER AND RESPECTIVE DOCUMENTS YET
           // REMINDER: fileDownload needs to be list of files...multiple files
           chapterDoc: [
-            {lessonName : "Python Set-up", fileDownload: "VSC.exe"},
-            {lessonName  : "Jupyter Set-up", fileDownload: "AnacondaSetUp.exe"},
-          ]
+            { lessonName: "Python Set-up", fileDownload: "VSC.exe" },
+            { lessonName: "Jupyter Set-up", fileDownload: "AnacondaSetUp.exe" },
+          ],
         },
         {
           courseID: "IS112",
@@ -138,13 +110,12 @@ export default {
           endTime: "11:30",
           classSize: 32,
           chapterDoc: [
-            {lessonName : "Vue Set-up", fileDownload: "Vue.exe"},
-            {lessonName  : "whatever Set-up", fileDownload: "whatever.exe"},
-          ]
-        }
+            { lessonName: "Vue Set-up", fileDownload: "Vue.exe" },
+            { lessonName: "whatever Set-up", fileDownload: "whatever.exe" },
+          ],
+        },
       ],
-      
-    }
+    };
   },
   methods: {
     modalOpen(data) {
@@ -159,10 +130,10 @@ export default {
           trainerName: data.trainerName,
           userID: data.userID,
           learnerID: data.learnerID,
-          learnerName: data.learnerName
-        }
+          learnerName: data.learnerName,
+        };
         console.log(this.myData);
-      } catch(e) {
+      } catch (e) {
         console.log(e);
         console.log("Error: This is an invalid move");
       }

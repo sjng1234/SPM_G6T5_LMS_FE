@@ -97,9 +97,9 @@ export default {
     checkCourse() {
       return this.checkEnrolledCourse();
     },
-    checkClass(id){
+    checkClass(id) {
       return this.checkEnrolledClass(id);
-    }
+    },
   },
   mounted() {
     // console.log(this.course_id)
@@ -163,8 +163,8 @@ export default {
           let enrolled = [];
           response.data.forEach((c) => {
             enrolled.push({
-              'class_id': c.class_id,
-              'course_id': c.course_id,
+              class_id: c.class_id,
+              course_id: c.course_id,
             });
           });
           this.enrolled_classes = enrolled;
