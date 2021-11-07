@@ -112,6 +112,7 @@ export default {
       ],
       duration: 0,
       uploaded: null,
+      
     };
   },
   mounted() {
@@ -133,7 +134,7 @@ export default {
       axios
         .post("http://127.0.0.1:5000/quiz/addQuiz", data)
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
           this.uploaded = true;
           setTimeout(() => {
             this.$router.go(-1);

@@ -23,8 +23,8 @@
             <td>{{ eachClass.class_creator_id }}</td>
             <td>{{ eachClass.trainer_id }}</td>
             <td>{{ eachClass.class_size }}</td>
-            <td>{{ eachClass.start_datetime }}</td>
-            <td>{{ eachClass.end_datetime }}</td>
+            <td>{{ eachClass.start_datetime.slice(0, -12) }}</td>
+            <td>{{ eachClass.end_datetime.slice(0, -12) }}</td>
             <td>
               <button
                 class="btn btn-primary"
