@@ -1,7 +1,14 @@
 <template>
   <div class="container d-flex flex-column">
-    <h1 class="text-start mb-2 mt-2">{{ course_id }} Materials</h1>
+    <h1 class="text-start mb-2 mt-2">{{ course_id }} {{class_id}} Materials</h1>
+
+    <div>
+      <button class="btn btn-primary d-flex mb-2 mt-2" @click="goToQuiz()">Take Quiz</button>
+    </div> 
+  
   </div>
+
+  
 
   <div class="container row">
     <table class="table">
@@ -60,7 +67,7 @@ import axios from "axios";
 
 export default {
   name: "Materials",
-  props: ["course_id"],
+  props: ["course_id", "class_id"],
   setup() {
     return {};
   },
@@ -134,6 +141,10 @@ export default {
 
     toggleAccordion() {
       this.isOpen = !this.isOpen;
+    },
+
+    goToQuiz() {
+      this.$router.push(`/Quiz/` + this.course_id + `-` + this.class_id)
     },
   },
 };
