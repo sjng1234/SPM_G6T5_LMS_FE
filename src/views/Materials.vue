@@ -26,15 +26,15 @@
           <td>{{ chapter.chapter_name }}</td>
           <td>
             <button
-              @click="toggleAccordion()"
+              @click="toggleAccordion(chapter.chapter_id)"
               class="btn btn-outline-info"
-              :aria-expanded="isOpen"
+              :aria-expanded="this.openState[chapter.chapter_id]"
               :aria-controls="chapter.materials.material_id"
             >
               Expand Materials
             </button>
 
-            <div v-if="isOpen" v-bind:id="chapter.materials.material_id">
+            <div v-if="this.openState[chapter.chapter_id]" v-bind:id="chapter.materials.material_id">
               <div
                 v-for="material in chapter.materials"
                 v-bind:key="material.material_id"
@@ -73,7 +73,7 @@ export default {
   },
   data() {
     return {
-      isOpen: false,
+      openState: {},
       materials_data: [],
     };
   },
@@ -84,6 +84,9 @@ export default {
       .then((response) => {
         console.log(response);
         this.materials_data = response.data;
+        this.materials_data.forEach((chapter) => {
+          this.openState[chapter.chapter_id] = false;
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -108,8 +111,8 @@ export default {
       });
     },
 
-    toggleAccordion() {
-      this.isOpen = !this.isOpen;
+    toggleAccordion(id) {
+      this.openState[id] = !this.openState[id];
     },
 
     goToQuiz() {
