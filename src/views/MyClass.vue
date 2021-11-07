@@ -30,7 +30,7 @@
             <td>
               <button
                 class="btn btn-primary"
-                @click="viewMaterials(item.course_id)"
+                @click="viewMaterials(item.course_id, item.class_id)"
               >
                 Materials
               </button>
@@ -145,9 +145,10 @@ export default {
       });
   },
   methods: {
-    viewMaterials(id) {
-      console.log(id);
-      this.$router.push({ name: "Materials", params: { course_id: id } });
+    viewMaterials(id1, id2) {
+      console.log(id1);
+      console.log(id2);
+      this.$router.push({ name: "Materials", params: { course_id: id1, class_id: id2 } });
     },
     modalOpen(data) {
       console.log("OPEN MODAL");
