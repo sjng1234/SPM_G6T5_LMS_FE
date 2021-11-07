@@ -6,8 +6,10 @@ import Login from "@/views/Login.vue";
 import CreateCourse from "@/views/CreateCourse.vue";
 import CreateClass from "@/views/CreateClass.vue";
 import CreateQuiz from "@/views/CreateQuiz.vue";
+import CreateChapter from "@/views/CreateChapter.vue";
 import CourseAdmin from "@/views/CourseAdmin.vue";
 import ClassAdmin from "@/views/ClassAdmin.vue";
+import ChapterAdmin from "@/views/ChapterAdmin.vue";
 import Class from "@/views/Class.vue";
 import Quiz from "@/views/Quiz.vue";
 import Materials from "@/views/Materials.vue";
@@ -62,6 +64,18 @@ const routes = [
     path: "/CreateQuiz/:id",
     name: "CreateQuiz",
     component: CreateQuiz,
+    props: true,
+  },
+  {
+    path: "/CreateChapter/:id",
+    name: "CreateChapter",
+    component: CreateChapter,
+    props: true,
+  },
+  {
+    path: "/ChapterAdmin/:id",
+    name: "ChapterAdmin",
+    component: ChapterAdmin,
     props: true,
   },
   {

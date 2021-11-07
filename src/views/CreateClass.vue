@@ -37,7 +37,7 @@ export default {
             "start_datetime": null,
             "end_datetime": null,
             "class_size": null,
-            "trainer_id": 1,
+            "trainer_id": 3,
             "uploaded": null,
             
         }
@@ -76,7 +76,7 @@ export default {
                     console.log(response)
                     this.uploaded = true
                     setTimeout(()=>{
-                        this.$router.go(-1);
+                        this.$router.go(-1);21
                     },1000)
                 }).catch((error)=>{
                     console.log(error)

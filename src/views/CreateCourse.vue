@@ -94,7 +94,7 @@ export default {
                 ;}
         },
         removeOptions(){
-            this.selected_prereq = null
+            this.selected_prereq = []
         }
 
     }
@@ -105,6 +105,5 @@ export default {
 <style>
 a:hover{
     cursor: pointer;
-
 }
 </style>
