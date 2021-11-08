@@ -55,7 +55,7 @@
     </div>
     <button
       class="mt-5 btn btn-primary"
-      :disabled="results.pass"
+      :disabled="results.pass || !isLearner"
       @click="submitAnswer()"
     >
       Submit

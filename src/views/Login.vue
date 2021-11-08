@@ -20,7 +20,7 @@
               Learner
             </button>
             <button
-              class="btn btn-outline-primary"
+              class="btn btn-warning"
               @click="loginTrainer()"
               type="button"
             >
