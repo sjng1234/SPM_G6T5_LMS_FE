@@ -55,8 +55,8 @@
     </div>
     <button
       class="mt-5 btn btn-primary"
-      :disabled="results.pass || !isLearner"
       @click="submitAnswer()"
+      :disabled="disableSubmit"
     >
       Submit
     </button>
@@ -77,7 +77,7 @@ export default {
       options: [],
       questions: [],
       answer_sheet: {},
-      isLearner: store.acc_type == "learner",
+      isLearner: false,
       submitted: false,
       answers: [],
       results: {},
@@ -85,10 +85,16 @@ export default {
       course_data: [],
     };
   },
+  computed:{
+    disableSubmit(){
+      return !this.isLearner;
+    }
+  },
   mounted() {
     var [course_id, class_id] = this.id.split("-");
     this.course_id = course_id;
     this.class_id = class_id;
+    this.isLearner = this.$store.state.acc_type == "learner";
     axios
       .get(
         `http://127.0.0.1:5000/classes/getQuiz/${this.course_id}-${this.class_id}-1`
