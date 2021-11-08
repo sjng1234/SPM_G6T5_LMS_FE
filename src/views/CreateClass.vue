@@ -40,11 +40,21 @@
           required
         />
       </div>
+      <select class="form-select" v-model="selected_trainer" required>
+          <option value="" disabled selected>Choose a trainer for this class</option>
+          <option
+            :value="trainer.trainer_id"
+            v-for="trainer in trainers"
+            v-bind:key="trainer.trainer_id"
+          >
+            {{trainer.name}}
+          </option>
+        </select>
       <button
         type="submit"
         onsubmit="return false;"
         v-on:click="createClass()"
-        class="btn btn-primary"
+        class="btn btn-primary mt-4"
       >
         Submit
       </button>
@@ -64,6 +74,8 @@ export default {
       class_size: null,
       trainer_id: 3,
       uploaded: null,
+      trainers:[],
+      selected_trainer: null
     };
   },
   computed: {
@@ -82,7 +94,13 @@ export default {
       return today;
     },
   },
-  mounted() {},
+  mounted() {
+      axios.get("http://127.0.0.1:5000/admin/getAllTrainers").then(response => {
+          this.trainers = response.data;
+      }).catch(error => {
+          console.log(error);
+      });
+  },
   methods: {
     createClass() {
       if (
@@ -97,7 +115,7 @@ export default {
           start_datetime: this.start_datetime,
           end_datetime: this.end_datetime,
           class_size: this.class_size,
-          trainer_id: this.trainer_id,
+          trainer_id: this.selected_trainer,
         };
         var success = confirm("Are you sure you want to create this class?")
         if(success){

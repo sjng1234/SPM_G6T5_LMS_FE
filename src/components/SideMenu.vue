@@ -36,7 +36,7 @@
         id="menu"
       >
         <!-- Find Course -->
-        <li class="nav-item">
+        <li class="nav-item" v-if="user=='learner'">
           <router-link
             to="/"
             class="
@@ -54,9 +54,25 @@
         </li>
 
         <!-- My Classes -->
-        <li>
+        <li v-if="user=='learner'">
           <router-link
             to="/MyClass"
+            class="
+              nav-link
+              px-0
+              align-middle
+              d-flex
+              flex-row
+              align-items-center
+            "
+          >
+            <i class="fs-4 bi-table"></i>
+            <span class="ms-1 d-none d-sm-inline">My Classes</span>
+          </router-link>
+        </li>
+        <li v-if="user=='trainer'">
+          <router-link
+          :to="{ name: 'ClassTrainer', params: { id: id }}"
             class="
               nav-link
               px-0
@@ -156,6 +172,12 @@ export default {
   name: "SideMenu",
   setup() {
     return {};
+  },
+  data(){
+    return {
+      user: store.state.acc_type,
+      id: store.state.user_id
+    }
   },
 
   methods: {
