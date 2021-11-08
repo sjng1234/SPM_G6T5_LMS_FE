@@ -10,14 +10,7 @@
     <h3 class="text-danger" v-if="class_data == 'error'">
       ⚠ Error! Course not found.
     </h3>
-    <div
-      v-if="class_data != 'error'"
-      class="d-flex flex-row justify-content-end button"
-    >
-      <button class="btn btn-outline-dark" @click="createClass()">
-        + New Class
-      </button>
-    </div>
+    
     <div class="card my-3 w-25" v-if="preReq.length">
       <div class="card-header">
         <h5 class="card-title text-center">
