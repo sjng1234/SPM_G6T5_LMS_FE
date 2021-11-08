@@ -1,6 +1,16 @@
 <template>
   <div class="container-fluid">
-    <h1 class="text-center">{{ course_id }}-{{ class_id }} Quiz</h1>
+    <h1 class="text-center">
+      {{ course_id }}-{{ class_id }} Quiz
+      <div
+        class="spinner-grow"
+        style="width: 2rem; height: 2rem"
+        role="status"
+        v-if="isLoading"
+      >
+        <span class="sr-only"></span>
+      </div>
+    </h1>
     <h3 class="text-center">{{ description }}</h3>
     <div
       class="d-flex mt-3 mx-5 flex-column align-items-start"
@@ -81,50 +91,48 @@ export default {
       submitted: false,
       answers: [],
       results: {},
-
+      isLoading: true,
       course_data: [],
     };
   },
-  computed:{
-    disableSubmit(){
+  computed: {
+    disableSubmit() {
       return !this.isLearner;
-    }
+    },
   },
-  mounted() {
+  async mounted() {
     var [course_id, class_id] = this.id.split("-");
     this.course_id = course_id;
     this.class_id = class_id;
     this.isLearner = this.$store.state.acc_type == "learner";
-    axios
+    await axios
       .get(
         `https://g6t5-flask.herokuapp.com/classes/getQuiz/${this.course_id}-${this.class_id}-1`
       )
       .then((response) => {
         this.questions = response.data;
-        console.log(response.data);
         response.data.question.forEach((question, index) => {
           var count = index + 1;
           this.answer_sheet["q" + count] = null;
         });
-
-        console.log(this.answer_sheet);
       })
       .catch((error) => {
         console.log(error);
       });
 
-    axios 
+    await axios
       .get(
         `https://g6t5-flask.herokuapp.com/course/getCourse/${this.course_id}`
       )
       .then((response) => {
         this.course_data = response.data;
         this.description = this.course_data.course_description;
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
-      })
+      });
+
+    this.isLoading = false;
   },
   methods: {
     async submitAnswer() {
@@ -152,24 +160,27 @@ export default {
               pass: correct >= passing ? true : false,
               total: total,
             };
-            
 
-
-            if(this.results.pass){
-                var data = {
-                    learner_id: store.state.user_id,
-                    course_id: this.course_id,
-                    is_qualified: true,
-                }
-                axios.post('https://g6t5-flask.herokuapp.com/learner/addBadge',data).then(()=>{
-                    alert(`Congratulations! You have passed the quiz and completed the course!`);
-                }).catch((error)=>{
-                    alert(`You have already passed the quiz and completed the course! Your score will not be recorded.`);
-                    console.log(error);
+            if (this.results.pass) {
+              var data = {
+                learner_id: store.state.user_id,
+                course_id: this.course_id,
+                is_qualified: true,
+              };
+              axios
+                .post("https://g6t5-flask.herokuapp.com/learner/addBadge", data)
+                .then(() => {
+                  alert(
+                    `Congratulations! You have passed the quiz and completed the course!`
+                  );
                 })
-                
-            }
-            else{
+                .catch((error) => {
+                  alert(
+                    `You have already passed the quiz and completed the course! Your score will not be recorded.`
+                  );
+                  console.log(error);
+                });
+            } else {
               alert(`You have failed the quiz!`);
             }
           })

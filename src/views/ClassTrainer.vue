@@ -1,6 +1,16 @@
 <template>
   <div class="container d-flex flex-column">
-    <h1 class="text-start mb-2 mt-2">Course: {{ course_id }}</h1>
+    <h1 class="text-start mb-2 mt-2">
+      Course: {{ course_id }}
+      <div
+        class="spinner-grow"
+        style="width: 2rem; height: 2rem"
+        role="status"
+        v-if="isLoading"
+      >
+        <span class="sr-only"></span>
+      </div>
+    </h1>
     <div v-if="isDeleted == true" class="alert alert-success" role="alert">
       ✔ Successfully Deleted!
     </div>
@@ -10,7 +20,7 @@
     <h3 class="text-danger" v-if="class_data == 'error'">
       ⚠ Error! Course not found.
     </h3>
-    
+
     <div class="card my-3 w-25" v-if="preReq.length">
       <div class="card-header">
         <h5 class="card-title text-center">
@@ -104,27 +114,26 @@ export default {
       class_data: [],
       isDeleted: null,
       preReq: [],
+      isLoading: true,
     };
   },
   mounted() {
     if (!this.class_data.length) {
-      let url =
-        `https://g6t5-flask.herokuapp.com/trainer/getAllClasses/${this.id}`;
+      let url = `https://g6t5-flask.herokuapp.com/trainer/getAllClasses/${this.id}`;
       axios
         .get(url)
         .then((response) => {
-          console.log(response);
           this.class_data = response.data;
+          this.isLoading = false;
         })
         .catch((error) => {
           console.log(error);
           this.class_data = "error";
+          this.isLoading = false;
         });
-      
     }
   },
   methods: {
-   
     addQuiz(course_id, class_id) {
       var id = course_id + "-" + class_id;
       this.$router.push({ name: "CreateQuiz", params: { id: id } });

@@ -108,43 +108,44 @@ export default {
   methods: {
     createCourse() {
       if (this.course_id && this.course_name && this.course_description) {
-        var course_data = {
-          course_id: this.course_id.toUpperCase(),
-          course_name: this.course_name,
-          course_description: this.course_description,
-          course_creator_id: this.course_creator_id,
-        };
+        var success = confirm("Are you sure you want to create this course?");
+        if (success) {
+          var course_data = {
+            course_id: this.course_id.toUpperCase(),
+            course_name: this.course_name,
+            course_description: this.course_description,
+            course_creator_id: this.course_creator_id,
+          };
 
-        axios
-          .post("https://g6t5-flask.herokuapp.com/course/add", course_data)
-          .then(async (response) => {
-            console.log(response);
-            if (this.selected_prereq.length) {
-              await this.selected_prereq.forEach((prereq) => {
-                console.log(prereq);
-                var prereq_data = {
-                  course_id: this.course_id.toUpperCase(),
-                  prereq_course_id: prereq,
-                };
-                axios
-                  .put("https://g6t5-flask.herokuapp.com/course/addPreReq", prereq_data)
-                  .then(() => {
-                    console.log("success");
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  });
-              });
-            }
-            this.uploaded = true;
-            setTimeout(() => {
-              this.$router.go(-1);
-            }, 1000);
-          })
-          .catch((error) => {
-            console.log(error);
-            this.uploaded = false;
-          });
+          axios
+            .post("https://g6t5-flask.herokuapp.com/course/add", course_data)
+            .then(async () => {
+              if (this.selected_prereq.length) {
+                await this.selected_prereq.forEach((prereq) => {
+                  var prereq_data = {
+                    course_id: this.course_id.toUpperCase(),
+                    prereq_course_id: prereq,
+                  };
+                  axios
+                    .put(
+                      "https://g6t5-flask.herokuapp.com/course/addPreReq",
+                      prereq_data
+                    )
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                });
+              }
+              this.uploaded = true;
+              setTimeout(() => {
+                this.$router.go(-1);
+              }, 1000);
+            })
+            .catch((error) => {
+              console.log(error);
+              this.uploaded = false;
+            });
+        }
       }
     },
     removeOptions() {

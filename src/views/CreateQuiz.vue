@@ -112,7 +112,6 @@ export default {
       ],
       duration: 0,
       uploaded: null,
-      
     };
   },
   mounted() {
@@ -130,24 +129,23 @@ export default {
         quiz_id: 1,
         duration: this.duration,
       };
-    var success = confirm("Are you sure you want to create this quiz?")
-    if(success){
-      axios
-        .post("https://g6t5-flask.herokuapp.com/quiz/addQuiz", data)
-        .then((response) => {
-          console.log(response.data);
-          this.uploaded = true;
-          setTimeout(() => {
-            this.$router.go(-1);
-          }, 1000);
-        })
-        .catch((error) => {
-          console.log(error);
-          this.uploaded = false;
-        });}
+      var success = confirm("Are you sure you want to create this quiz?");
+      if (success) {
+        axios
+          .post("https://g6t5-flask.herokuapp.com/quiz/addQuiz", data)
+          .then(() => {
+            this.uploaded = true;
+            setTimeout(() => {
+              this.$router.go(-1);
+            }, 1000);
+          })
+          .catch((error) => {
+            console.log(error);
+            this.uploaded = false;
+          });
+      }
     },
     addQn() {
-      console.log(this.question);
       var new_qn = {
         question_description: "",
         question_id: this.question.length + 1,

@@ -44,7 +44,7 @@ export default {
       this.$emit("loggedIn", "learner");
     },
     loginTrainer() {
-      this.$router.push({ name: 'ClassTrainer', params: { id: 3 }});
+      this.$router.push({ name: "ClassTrainer", params: { id: 3 } });
       this.$emit("loggedIn", "trainer");
     },
   },

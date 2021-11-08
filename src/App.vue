@@ -36,7 +36,6 @@ export default {
     };
   },
   mounted() {
-    console.log(store.state.acc_type);
     if (store.state.acc_type == "") {
       this.$router.push("/Login");
     }
@@ -45,7 +44,6 @@ export default {
     axios
       .get("https://g6t5-flask.herokuapp.com/course/getAll")
       .then((res) => {
-        console.log(res.data);
         this.testMsg = res.data;
       })
       .catch((e) => console.log(e));

@@ -1,6 +1,16 @@
 <template>
   <div class="container d-flex flex-column">
-    <h1 class="text-start mb-2 mt-2">Course: {{ course_id }}</h1>
+    <h1 class="text-start mb-2 mt-2">
+      Course: {{ course_id }}
+      <div
+        class="spinner-grow"
+        style="width: 2rem; height: 2rem"
+        role="status"
+        v-if="isLoading"
+      >
+        <span class="sr-only"></span>
+      </div>
+    </h1>
     <div v-if="isDeleted == true" class="alert alert-success" role="alert">
       ✔ Successfully Deleted!
     </div>
@@ -123,19 +133,19 @@ export default {
       class_data: [],
       isDeleted: null,
       preReq: [],
+      isLoading: true,
     };
   },
-  mounted() {
+  async mounted() {
     // console.log("course_id: " + this.course_id)
     if (!this.class_data.length) {
       let url =
         `https://g6t5-flask.herokuapp.com/course/getCourse/` +
         this.course_id +
         `/getAllClasses`;
-      axios
+      await axios
         .get(url)
         .then((response) => {
-          console.log(response);
           this.class_data = response.data;
         })
         .catch((error) => {
@@ -143,10 +153,9 @@ export default {
           this.class_data = "error";
         });
       let preq = `https://g6t5-flask.herokuapp.com/course/${this.course_id}/getPreReq`;
-      axios
+      await axios
         .get(preq)
         .then((response) => {
-          console.log(response.data);
           this.preReq = response.data[`Pre-Requisites-List`];
         })
         .catch((error) => {
@@ -154,6 +163,7 @@ export default {
           this.preReq = [];
         });
     }
+    this.isLoading = false;
   },
   methods: {
     createClass() {
@@ -169,8 +179,7 @@ export default {
       if (sure) {
         axios
           .delete(`https://g6t5-flask.herokuapp.com/classes/delete/${id}`)
-          .then((response) => {
-            console.log(response);
+          .then(() => {
             location.reload();
             this.isDeleted = true;
           })
