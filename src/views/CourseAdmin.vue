@@ -79,7 +79,7 @@ export default {
   mounted() {
     console.log(store.state)
     axios
-      .get("http://127.0.0.1:5000/course/getAll")
+      .get("https://g6t5-flask.herokuapp.com/course/getAll")
       .then((response) => {
         console.log(response);
         this.course_data = response.data;
@@ -103,7 +103,7 @@ export default {
       );
       if (sure) {
         axios
-          .delete(`http://127.0.0.1:5000/course/delete/${course_id}`)
+          .delete(`https://g6t5-flask.herokuapp.com/course/delete/${course_id}`)
           .then((response) => {
             console.log(response);
             location.reload();

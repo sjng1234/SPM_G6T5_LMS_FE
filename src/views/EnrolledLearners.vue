@@ -98,7 +98,7 @@ export default {
         this.class_id = class_id;
 
       // Get Enrolled Learners
-      await axios.get(`http://127.0.0.1:5000/classes/${this.id}/getAllEnrolledLearners`).then((response) => {
+      await axios.get(`https://g6t5-flask.herokuapp.com/classes/${this.id}/getAllEnrolledLearners`).then((response) => {
         this.enrolledLearners = response.data.enrolled_users
         this.enrolledLearners.forEach((learner)=>{
         this.enrolledLearnersID.push(learner.learner_id)
@@ -108,7 +108,7 @@ export default {
       })
 
       // Get all learners
-      await axios.get(`http://127.0.0.1:5000/admin/getAllLearners`).then((response) => {
+      await axios.get(`https://g6t5-flask.herokuapp.com/admin/getAllLearners`).then((response) => {
         this.users = response.data
       }).catch((error) => {
         console.log(error)
@@ -124,7 +124,7 @@ export default {
       var success = confirm("Are you sure you want to delete this learner?")
       if(success){
       var id = `${this.id}-${learner_id}`
-      axios.delete(`http://127.0.0.1:5000/learner/drop/${id}`).then(() => {
+      axios.delete(`https://g6t5-flask.herokuapp.com/learner/drop/${id}`).then(() => {
         console.log("Successfully deleted")
         this.isDeleted = true
         setTimeout(() => {
@@ -145,7 +145,7 @@ export default {
           course_id:this.course_id,
           class_id:this.class_id
           }
-        axios.post(`http://127.0.0.1:5000/learner/enrol`,data).then(()=>{
+        axios.post(`https://g6t5-flask.herokuapp.com/learner/enrol`,data).then(()=>{
           console.log("Added!")
         }).catch((error) => {
           console.log(error)

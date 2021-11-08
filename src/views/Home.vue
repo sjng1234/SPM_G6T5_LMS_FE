@@ -61,7 +61,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://127.0.0.1:5000/course/getAll")
+      .get("https://g6t5-flask.herokuapp.com/course/getAll")
       .then((response) => {
         console.log(response);
         this.items = response.data;

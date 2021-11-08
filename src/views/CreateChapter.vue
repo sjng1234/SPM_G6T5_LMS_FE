@@ -94,7 +94,7 @@ export default {
         console.log(chapter_data);
 
         axios
-          .post("http://127.0.0.1:5000/chapter/addChapter", chapter_data)
+          .post("https://g6t5-flask.herokuapp.com/chapter/addChapter", chapter_data)
           .then(async (response) => {
             console.log(response);
             if (this.material_name) {
@@ -107,7 +107,7 @@ export default {
                 material_reference: this.material_reference,
               };
               axios
-                .put("http://127.0.0.1:5000/material/add", material_data)
+                .put("https://g6t5-flask.herokuapp.com/material/add", material_data)
                 .then(() => {
                   console.log("success");
                 })

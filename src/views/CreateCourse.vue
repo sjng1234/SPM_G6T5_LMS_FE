@@ -96,7 +96,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://127.0.0.1:5000/course/getAll")
+      .get("https://g6t5-flask.herokuapp.com/course/getAll")
       .then((response) => {
         this.all_courses = response.data;
         console.log(this.all_courses);
@@ -116,7 +116,7 @@ export default {
         };
 
         axios
-          .post("http://127.0.0.1:5000/course/add", course_data)
+          .post("https://g6t5-flask.herokuapp.com/course/add", course_data)
           .then(async (response) => {
             console.log(response);
             if (this.selected_prereq.length) {
@@ -127,7 +127,7 @@ export default {
                   prereq_course_id: prereq,
                 };
                 axios
-                  .put("http://127.0.0.1:5000/course/addPreReq", prereq_data)
+                  .put("https://g6t5-flask.herokuapp.com/course/addPreReq", prereq_data)
                   .then(() => {
                     console.log("success");
                   })

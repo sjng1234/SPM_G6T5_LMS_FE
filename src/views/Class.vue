@@ -157,7 +157,7 @@ export default {
   mounted() {
     // console.log(this.course_id)
     let url =
-      `http://127.0.0.1:5000/course/getCourse/` +
+      `https://g6t5-flask.herokuapp.com/course/getCourse/` +
       this.course_id +
       `/getAllClasses`;
     axios
@@ -185,7 +185,7 @@ export default {
       console.log("OPEN MODAL");
 
       let url =
-        `http://127.0.0.1:5000/classes/get/` +
+        `https://g6t5-flask.herokuapp.com/classes/get/` +
         this.course_id +
         `-` +
         this.curr_class_id;
@@ -212,7 +212,7 @@ export default {
       this.class_status = false;
     },
     getLearnerEnrolledClasses() {
-      let url2 = `http://127.0.0.1:5000/learner/getEnrolledClasses/2`;
+      let url2 = `https://g6t5-flask.herokuapp.com/learner/getEnrolledClasses/2`;
       axios
         .get(url2)
         .then((response) => {
@@ -252,14 +252,14 @@ export default {
     updateClassEnrolment(obj) {
       console.log(obj);
       if (obj.status) {
-        let url = `http://127.0.0.1:5000/learner/drop/${obj.course_id}-${obj.class_id}-2`;
+        let url = `https://g6t5-flask.herokuapp.com/learner/drop/${obj.course_id}-${obj.class_id}-2`;
         console.log(url);
         axios.delete(url).then((response) => {
           console.log(response.data);
           this.getLearnerEnrolledClasses();
         });
       } else {
-        let url = `http://127.0.0.1:5000/learner/enrol`;
+        let url = `https://g6t5-flask.herokuapp.com/learner/enrol`;
         delete obj.status;
         axios.post(url, obj).then((response) => {
           console.log(response.data);
@@ -268,7 +268,7 @@ export default {
       }
     },
     getCoursePreReq(){
-      let url = `http://127.0.0.1:5000/course/${this.course_id}/getPreReq`;
+      let url = `https://g6t5-flask.herokuapp.com/course/${this.course_id}/getPreReq`;
       axios.get(url)
       .then(res=>{
         this.course_prereq = res.data['Pre-Requisites-List'];
@@ -276,7 +276,7 @@ export default {
       .catch(e=> console.log(e));
     },
     getLearnerBadges(){
-      let url = `http://127.0.0.1:5000/learner/${this.$store.state.user_id}/getAllBadges`;
+      let url = `https://g6t5-flask.herokuapp.com/learner/${this.$store.state.user_id}/getAllBadges`;
         axios.get(url).then(res => {
           this.learner_badges = res.data.badges;
         }).catch(e=>console.log(e));

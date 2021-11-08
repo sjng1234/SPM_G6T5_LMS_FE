@@ -97,7 +97,7 @@ export default {
     this.isLearner = this.$store.state.acc_type == "learner";
     axios
       .get(
-        `http://127.0.0.1:5000/classes/getQuiz/${this.course_id}-${this.class_id}-1`
+        `https://g6t5-flask.herokuapp.com/classes/getQuiz/${this.course_id}-${this.class_id}-1`
       )
       .then((response) => {
         this.questions = response.data;
@@ -115,7 +115,7 @@ export default {
 
     axios 
       .get(
-        `http://127.0.0.1:5000/course/getCourse/${this.course_id}`
+        `https://g6t5-flask.herokuapp.com/course/getCourse/${this.course_id}`
       )
       .then((response) => {
         this.course_data = response.data;
@@ -132,7 +132,7 @@ export default {
       if (sure) {
         await axios
           .get(
-            `http://127.0.0.1:5000/quiz/getQuizAnswers/${this.course_id}-${this.class_id}-1`
+            `https://g6t5-flask.herokuapp.com/quiz/getQuizAnswers/${this.course_id}-${this.class_id}-1`
           )
           .then((response) => {
             this.submitted = true;
@@ -161,7 +161,7 @@ export default {
                     course_id: this.course_id,
                     is_qualified: true,
                 }
-                axios.post('http://127.0.0.1:5000/learner/addBadge',data).then(()=>{
+                axios.post('https://g6t5-flask.herokuapp.com/learner/addBadge',data).then(()=>{
                     alert(`Congratulations! You have passed the quiz and completed the course!`);
                 }).catch((error)=>{
                     alert(`You have already passed the quiz and completed the course! Your score will not be recorded.`);

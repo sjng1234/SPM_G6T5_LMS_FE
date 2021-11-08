@@ -133,7 +133,7 @@ export default {
     var success = confirm("Are you sure you want to create this quiz?")
     if(success){
       axios
-        .post("http://127.0.0.1:5000/quiz/addQuiz", data)
+        .post("https://g6t5-flask.herokuapp.com/quiz/addQuiz", data)
         .then((response) => {
           console.log(response.data);
           this.uploaded = true;
