@@ -55,7 +55,7 @@
     </div>
     <button
       class="mt-5 btn btn-primary"
-      :disabled="results.pass"
+      :disabled="results.pass || !isLearner"
       @click="submitAnswer()"
     >
       Submit
@@ -114,7 +114,7 @@ export default {
       .then((response) => {
         this.course_data = response.data;
         this.description = this.course_data.course_description;
-        console.log(this.description);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

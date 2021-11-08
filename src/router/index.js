@@ -15,6 +15,7 @@ import Class from "@/views/Class.vue";
 import Quiz from "@/views/Quiz.vue";
 import Materials from "@/views/Materials.vue";
 import Profile from "@/views/Profile.vue";
+import ClassTrainer from "@/views/ClassTrainer.vue";
 
 const routes = [
   {
@@ -108,6 +109,12 @@ const routes = [
     path: "/EnrolledLearners/:id",
     name: "EnrolledLearners",
     component: EnrolledLearners,
+    props: true,
+  },
+  {
+    path: "/ClassTrainer/:id",
+    name: "ClassTrainer",
+    component: ClassTrainer,
     props: true,
   },
 ];

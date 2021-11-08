@@ -24,7 +24,7 @@
                 data-bs-target="#addUser"
                 aria-expanded="false"
                 aria-controls="collapseExample"
-                v-if="!isAdding">+ Add Learner</button>
+                v-if="!isAdding && !isTrainer">+ Add Learner</button>
       <button class="btn btn-danger mx-2 mb-3"
                 type="button"
                 @click="this.isAdding=false"
@@ -32,14 +32,14 @@
                 data-bs-target="#addUser"
                 aria-expanded="false"
                 aria-controls="collapseExample"
-                v-if="isAdding">Close</button>
+                v-if="isAdding && !isTrainer">Close</button>
       <button class="btn btn-success mx-2 mb-3"
                 type="button"
                 @click="addUsers()"
-                v-if="isAdding">Add</button>
+                v-if="isAdding && !isTrainer">Add</button>
       <button type="button" class="btn btn-outline-primary mx-2 mb-3" @click="this.selected_users=[]" v-if="this.selected_users.length">Clear</button>
 
-      <div class="collapse" id="addUser">
+      <div class="collapse" id="addUser" v-if="!isTrainer">
         <p>Selected: {{this.selected_users.length}}</p>
         
         <select class="form-select" v-model="selected_users" multiple>
@@ -58,12 +58,12 @@
           <tr>
             <th>S/N</th>
             <th>Learner Name</th>
-            <th></th>
+            <th v-if="!isTrainer"></th>
           </tr>
           <tr v-for="(learner,index) in enrolledLearners" v-bind:key="learner.user_id">
             <td>{{index+1}}</td>
             <td>{{learner.name}}</td>
-            <td><a @click="deleteUser(learner.learner_id)">❌</a></td>
+            <td v-if="!isTrainer"><a @click="deleteUser(learner.learner_id)">❌</a></td>
           </tr>
         </thead>
       </table>
@@ -74,6 +74,7 @@
 
 <script>
 import axios from "axios"
+import store from "@/store.js"
 export default {
     props: ['id'],
     data() {
@@ -87,7 +88,8 @@ export default {
             isAdding: false,
             selected_users: [],
             users: [],
-            addSuccess:null
+            addSuccess:null,
+            isTrainer: store.state.acc_type == 'trainer'
         }
     },
     async mounted(){
@@ -99,7 +101,7 @@ export default {
       await axios.get(`http://127.0.0.1:5000/classes/${this.id}/getAllEnrolledLearners`).then((response) => {
         this.enrolledLearners = response.data.enrolled_users
         this.enrolledLearners.forEach((learner)=>{
-          this.enrolledLearnersID.push(learner.learner_id)
+        this.enrolledLearnersID.push(learner.learner_id)
         })
       }).catch((error) => {
         console.log(error)

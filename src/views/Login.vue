@@ -20,7 +20,7 @@
               Learner
             </button>
             <button
-              class="btn btn-outline-primary"
+              class="btn btn-warning"
               @click="loginTrainer()"
               type="button"
             >
@@ -44,7 +44,7 @@ export default {
       this.$emit("loggedIn", "learner");
     },
     loginTrainer() {
-      this.$router.push("/");
+      this.$router.push({ name: 'ClassTrainer', params: { id: 3 }});
       this.$emit("loggedIn", "trainer");
     },
   },
