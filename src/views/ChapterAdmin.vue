@@ -1,6 +1,16 @@
 <template>
   <div class="container d-flex flex-column">
-    <h1 class="text-start mb-2 mt-2">Class: {{ course_id }}-{{ class_id }}</h1>
+    <h1 class="text-start mb-2 mt-2">
+      Class: {{ course_id }}-{{ class_id }}
+      <div
+        class="spinner-grow"
+        style="width: 2rem; height: 2rem"
+        role="status"
+        v-if="isLoading"
+      >
+        <span class="sr-only"></span>
+      </div>
+    </h1>
     <div v-if="isDeleted == true" class="alert alert-success" role="alert">
       ✔ Successfully Deleted!
     </div>
@@ -105,6 +115,7 @@ export default {
       isDeleted: null,
       course_id: null,
       class_id: null,
+      isLoading: true,
     };
   },
   mounted() {
@@ -116,12 +127,13 @@ export default {
     axios
       .get(url)
       .then((response) => {
-        console.log(response);
         this.chapter_data = response.data;
+        this.isLoading = false;
       })
       .catch((error) => {
         console.log(error);
         this.chapter_data = "error";
+        this.isLoading = false;
       });
   },
   methods: {
@@ -135,8 +147,7 @@ export default {
       if (sure) {
         axios
           .delete(`https://g6t5-flask.herokuapp.com/classes/delete/${id}`)
-          .then((response) => {
-            console.log(response);
+          .then(() => {
             location.reload();
             this.isDeleted = true;
           })

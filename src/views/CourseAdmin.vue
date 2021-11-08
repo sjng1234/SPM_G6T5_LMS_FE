@@ -1,6 +1,16 @@
 <template>
   <div class="container d-flex flex-column">
-    <h1 class="text-start mb-2 mt-2">Courses</h1>
+    <h1 class="text-start mb-2 mt-2">
+      Courses
+      <div
+        class="spinner-grow"
+        style="width: 2rem; height: 2rem"
+        role="status"
+        v-if="isLoading"
+      >
+        <span class="sr-only"></span>
+      </div>
+    </h1>
     <div v-if="isDeleted == true" class="alert alert-success" role="alert">
       ✔ Successfully Deleted!
     </div>
@@ -62,7 +72,6 @@
 
 <script>
 import axios from "axios";
-import store from "@/store.js";
 
 export default {
   name: "Home",
@@ -74,21 +83,21 @@ export default {
     return {
       course_data: [],
       isDeleted: null,
+      isLoading: true,
     };
   },
   mounted() {
-    console.log(store.state)
     axios
       .get("https://g6t5-flask.herokuapp.com/course/getAll")
       .then((response) => {
-        console.log(response);
         this.course_data = response.data;
+        this.isLoading = false;
       })
       .catch((error) => {
         console.log(error);
         this.course_data = "error";
+        this.isLoading = false;
       });
-    console.log(store.state.acc_type);
   },
   methods: {
     viewClass(id, name) {
@@ -104,8 +113,7 @@ export default {
       if (sure) {
         axios
           .delete(`https://g6t5-flask.herokuapp.com/course/delete/${course_id}`)
-          .then((response) => {
-            console.log(response);
+          .then(() => {
             location.reload();
             this.isDeleted = true;
           })

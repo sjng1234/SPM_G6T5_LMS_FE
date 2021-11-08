@@ -82,8 +82,6 @@ export default {
           startTime: "08:15",
           endTime: "11:30",
           classSize: 35,
-          // HEIN: HAVENT DECIDE HOW I WANT TO DISPLAY THE CHAPTER AND RESPECTIVE DOCUMENTS YET
-          // REMINDER: fileDownload needs to be list of files...multiple files
           chapterDoc: [
             { lessonName: "Python Set-up", fileDownload: "VSC.exe" },
             { lessonName: "Jupyter Set-up", fileDownload: "AnacondaSetUp.exe" },
@@ -111,9 +109,6 @@ export default {
   },
   methods: {
     modalOpen(data) {
-      console.log("OPEN MODAL");
-      console.log(data);
-      console.log(this.modalState);
       try {
         this.myData = {
           courseID: data.courseID,
@@ -129,16 +124,12 @@ export default {
           classSize: data.classSize,
           chapterDoc: data.chapterDoc,
         };
-        console.log(this.myData);
       } catch (e) {
         console.log(e);
-        console.log("Error: This is an invalid move");
       }
       this.modalState = !this.modalState;
     },
-    modalClose(msg) {
-      console.log(msg);
-      console.log(this.modalState);
+    modalClose() {
       this.modalState = !this.modalState;
       this.myData = {};
     },

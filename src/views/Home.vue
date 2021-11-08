@@ -1,9 +1,20 @@
 <template>
   <div class="container d-flex flex-column">
-    <h1 class="text-start mb-2 mt-2">Find Courses</h1>
+    <h1 class="text-start mb-2 mt-2">
+      Find Courses
+      <div
+        class="spinner-grow"
+        style="width: 2rem; height: 2rem"
+        role="status"
+        v-if="isLoading"
+      >
+        <span class="sr-only"></span>
+      </div>
+    </h1>
     <h3 class="text-danger" v-if="items == 'error'">
       ⚠ Error! Please refresh page.
     </h3>
+
     <div
       v-if="items != 'error'"
       class="d-flex flex-row justify-content-end button"
@@ -20,7 +31,7 @@
         </thead>
 
         <tbody>
-          <tr v-if="!items.length">
+          <tr v-if="!items.length && !isLoading">
             <th colspan="3">No courses added yet!</th>
           </tr>
           <tr v-for="item in items" v-bind:key="item.course_id">
@@ -57,18 +68,20 @@ export default {
       curData: {},
       selected_courseID: "",
       items: [],
+      isLoading: true,
     };
   },
   mounted() {
     axios
       .get("https://g6t5-flask.herokuapp.com/course/getAll")
       .then((response) => {
-        console.log(response);
         this.items = response.data;
+        this.isLoading = false;
       })
       .catch((error) => {
         console.log(error);
         this.items = "error";
+        this.isLoading = false;
       });
   },
   methods: {
@@ -77,9 +90,6 @@ export default {
       this.$router.push({ name: "Class", params: { course_id: id } });
     },
     modalOpen(data) {
-      console.log("OPEN MODAL");
-      console.log(data);
-      console.log(this.modalState);
       try {
         this.curData = {
           courseID: data.courseID,
@@ -94,17 +104,13 @@ export default {
           endTime: data.endTime,
           classSize: data.classSize,
         };
-        console.log("#######");
-        console.log(this.curData);
       } catch (e) {
         console.log(e);
         console.log("Error: This is an invalid move");
       }
       this.modalState = !this.modalState;
     },
-    modalClose(msg) {
-      console.log(msg);
-      console.log(this.modalState);
+    modalClose() {
       this.modalState = !this.modalState;
       this.curData = {};
     },

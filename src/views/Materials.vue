@@ -1,10 +1,28 @@
 <template>
   <div class="container d-flex flex-column">
-    <h1 class="text-start mb-2 mt-2">{{ course_id }}-{{class_id}} Materials</h1>
+    <h1 class="text-start mb-2 mt-2">
+      {{ course_id }}-{{ class_id }} Materials
+      <div
+        class="spinner-grow"
+        style="width: 2rem; height: 2rem"
+        role="status"
+        v-if="isLoading"
+      >
+        <span class="sr-only"></span>
+      </div>
+    </h1>
 
     <div class="row">
-      <button v-if="checkAllCompleted()" class="btn btn-primary mb-2 mt-2" @click="goToQuiz()">Take Quiz</button>
-      <span class="bg-info mb-2 mt-2 p-2" v-else>Please complete all course materials to take quiz</span>
+      <button
+        v-if="checkAllCompleted()"
+        class="btn btn-primary mb-2 mt-2"
+        @click="goToQuiz()"
+      >
+        Take Quiz
+      </button>
+      <span class="bg-info mb-2 mt-2 p-2" v-else
+        >Please complete all course materials to take quiz</span
+      >
     </div>
 
     <div class="container row">
@@ -24,14 +42,17 @@
             <td>
               <button
                 @click="toggleAccordion(chapter.chapter_id)"
-                class="btn btn-outline-info"
+                class="btn btn-outline-dark"
                 :aria-expanded="this.openState[chapter.chapter_id]"
                 :aria-controls="chapter.materials.material_id"
               >
-                Expand Materials
+                Expand
               </button>
 
-              <div v-if="this.openState[chapter.chapter_id]" v-bind:id="chapter.materials.material_id">
+              <div
+                v-if="this.openState[chapter.chapter_id]"
+                v-bind:id="chapter.materials.material_id"
+              >
                 <div
                   v-for="material in chapter.materials"
                   v-bind:key="material.material_id"
@@ -44,13 +65,24 @@
                       <button
                         type="button"
                         class="btn btn-outline-secondary"
-                        @click="{onDownload(); completeMaterial(material,chapter.chapter_id)}"
+                        @click="
+                          {
+                            onDownload();
+                            completeMaterial(material, chapter.chapter_id);
+                          }
+                        "
                       >
                         Download
                       </button>
                     </div>
                     <div class="col-2">
-                      <span v-if="getCompleted(chapter.chapter_id,material.material_id)" class="badge bg-success">&#10003;</span>
+                      <span
+                        v-if="
+                          getCompleted(chapter.chapter_id, material.material_id)
+                        "
+                        class="badge bg-success"
+                        >&#10003;</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -80,18 +112,18 @@ export default {
       materialCompletedState: {},
       materials_data: [],
       course_material_count: 0,
+      isLoading: true,
     };
   },
-  mounted() {
+  async mounted() {
     var [course_id, class_id] = this.id.split("-");
     this.course_id = course_id;
     this.class_id = class_id;
 
-    let url = `https://g6t5-flask.herokuapp.com/classes/getChapters/${this.course_id}-${this.class_id}`
-    axios
+    let url = `https://g6t5-flask.herokuapp.com/classes/getChapters/${this.course_id}-${this.class_id}`;
+    await axios
       .get(url)
       .then((response) => {
-        console.log(response);
         this.materials_data = response.data;
         this.materials_data.forEach((chapter) => {
           this.openState[chapter.chapter_id] = false;
@@ -102,7 +134,8 @@ export default {
         console.log(error);
         this.materials_data = "error";
       });
-      this.checkCompletedMaterial();
+    await this.checkCompletedMaterial();
+    this.isLoading = false;
   },
   methods: {
     onDownload() {
@@ -130,44 +163,47 @@ export default {
       var id = this.course_id + "-" + this.class_id;
       this.$router.push({ name: "Quiz", params: { id: id } });
     },
-    checkAllCompleted(){
-      return Object.keys(this.materialCompletedState).length === this.course_material_count;
+    checkAllCompleted() {
+      return (
+        Object.keys(this.materialCompletedState).length ===
+        this.course_material_count
+      );
     },
     checkCompletedMaterial() {
       // Check material completion status
       let url = `https://g6t5-flask.herokuapp.com/learner/getCompletedMaterials/${this.course_id}-${this.class_id}-${this.$store.state.user_id}`;
-      console.log(url);
       axios.get(url).then((response) => {
-        // console.log(response.data);
         response.data.forEach((completed) => {
-          this.materialCompletedState[`${completed.chapter_id}-${completed.material_id}`] = true;
+          this.materialCompletedState[
+            `${completed.chapter_id}-${completed.material_id}`
+          ] = true;
         });
-        console.log(this.materialCompletedState);
       });
     },
 
     getCompleted(chapter_id, material_id) {
       return this.materialCompletedState[`${chapter_id}-${material_id}`];
     },
-    
-    completeMaterial(obj,chap_id) {
+
+    completeMaterial(obj, chap_id) {
       // Update material completion status when user download material
-      let url = "https://g6t5-flask.herokuapp.com/learner/completeMaterial"
-      axios.put(url, {
-        learner_id: this.$store.state.user_id,
-        course_id: this.course_id,
-        class_id: this.class_id,
-        chapter_id: chap_id,
-        material_id: obj.material_id,
-        material_name: obj.material_name,
-        is_completed: true,
-      })
-      .then(()=>{
-        this.checkCompletedMaterial();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      let url = "https://g6t5-flask.herokuapp.com/learner/completeMaterial";
+      axios
+        .put(url, {
+          learner_id: this.$store.state.user_id,
+          course_id: this.course_id,
+          class_id: this.class_id,
+          chapter_id: chap_id,
+          material_id: obj.material_id,
+          material_name: obj.material_name,
+          is_completed: true,
+        })
+        .then(() => {
+          this.checkCompletedMaterial();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

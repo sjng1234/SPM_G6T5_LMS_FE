@@ -36,7 +36,7 @@
         id="menu"
       >
         <!-- Find Course -->
-        <li class="nav-item" v-if="user=='learner'">
+        <li class="nav-item" v-if="user == 'learner'">
           <router-link
             to="/"
             class="
@@ -54,7 +54,7 @@
         </li>
 
         <!-- My Classes -->
-        <li v-if="user=='learner'">
+        <li v-if="user == 'learner'">
           <router-link
             to="/MyClass"
             class="
@@ -70,9 +70,9 @@
             <span class="ms-1 d-none d-sm-inline">My Classes</span>
           </router-link>
         </li>
-        <li v-if="user=='trainer'">
+        <li v-if="user == 'trainer'">
           <router-link
-          :to="{ name: 'ClassTrainer', params: { id: id }}"
+            :to="{ name: 'ClassTrainer', params: { id: id } }"
             class="
               nav-link
               px-0
@@ -147,7 +147,23 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
           <!-- Hardcoded Router Link to Learner's Profile with the created user's ID , will use VueX to store user's id in subsequent implementations -->
-          <li><router-link :to="{ name: 'Profile', params: { id: this.$store.state.acc_type=='learner'? 2 : this.$store.state.acc_type=='trainer'? 3 : 1 } }" class="dropdown-item">Profile</router-link></li>
+          <li>
+            <router-link
+              :to="{
+                name: 'Profile',
+                params: {
+                  id:
+                    this.$store.state.acc_type == 'learner'
+                      ? 2
+                      : this.$store.state.acc_type == 'trainer'
+                      ? 3
+                      : 1,
+                },
+              }"
+              class="dropdown-item"
+              >Profile</router-link
+            >
+          </li>
           <li><hr class="dropdown-divider" /></li>
           <div class="text-center">
             <button
@@ -173,11 +189,11 @@ export default {
   setup() {
     return {};
   },
-  data(){
+  data() {
     return {
       user: store.state.acc_type,
-      id: store.state.user_id
-    }
+      id: store.state.user_id,
+    };
   },
 
   methods: {

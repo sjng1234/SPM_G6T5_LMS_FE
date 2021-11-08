@@ -21,7 +21,7 @@ const store = createStore({
   mutations: {
     onLogin(state, acc_type) {
       state.acc_type = acc_type;
-      switch(acc_type){
+      switch (acc_type) {
         case "admin":
           state.user_id = 1;
           break;
