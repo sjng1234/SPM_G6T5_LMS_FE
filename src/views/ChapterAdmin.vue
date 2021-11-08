@@ -112,7 +112,7 @@ export default {
     this.course_id = course_id;
     this.class_id = class_id;
 
-    let url = `http://127.0.0.1:5000/classes/getChapters/${this.id}`;
+    let url = `https://g6t5-flask.herokuapp.com/classes/getChapters/${this.id}`;
     axios
       .get(url)
       .then((response) => {
@@ -134,7 +134,7 @@ export default {
       var sure = confirm(`Are you sure you want to delete this class (${id})?`);
       if (sure) {
         axios
-          .delete(`http://127.0.0.1:5000/classes/delete/${id}`)
+          .delete(`https://g6t5-flask.herokuapp.com/classes/delete/${id}`)
           .then((response) => {
             console.log(response);
             location.reload();

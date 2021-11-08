@@ -129,7 +129,7 @@ export default {
     // console.log("course_id: " + this.course_id)
     if (!this.class_data.length) {
       let url =
-        `http://127.0.0.1:5000/course/getCourse/` +
+        `https://g6t5-flask.herokuapp.com/course/getCourse/` +
         this.course_id +
         `/getAllClasses`;
       axios
@@ -142,7 +142,7 @@ export default {
           console.log(error);
           this.class_data = "error";
         });
-      let preq = `http://127.0.0.1:5000/course/${this.course_id}/getPreReq`;
+      let preq = `https://g6t5-flask.herokuapp.com/course/${this.course_id}/getPreReq`;
       axios
         .get(preq)
         .then((response) => {
@@ -168,7 +168,7 @@ export default {
       var sure = confirm(`Are you sure you want to delete this class (${id})?`);
       if (sure) {
         axios
-          .delete(`http://127.0.0.1:5000/classes/delete/${id}`)
+          .delete(`https://g6t5-flask.herokuapp.com/classes/delete/${id}`)
           .then((response) => {
             console.log(response);
             location.reload();

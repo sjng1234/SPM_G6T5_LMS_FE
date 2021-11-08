@@ -53,7 +53,7 @@ export default {
   methods: {
     getCredentials() {
       if (this.$store.state.acc_type == 'learner'){
-        let url = `http://127.0.0.1:5000/learner/${this.id}/getAllBadges`;
+        let url = `https://g6t5-flask.herokuapp.com/learner/${this.id}/getAllBadges`;
         axios.get(url).then(response => {
           this.qualifications = response.data.badges;
           this.num_qualifications = response.data.badges.length;
@@ -62,7 +62,7 @@ export default {
           console.log(error);
         });
       }else if (this.$store.state.acc_type == 'trainer'){
-        let url = `http://127.0.0.1:5000/trainer/getAllQualifications/${this.id}`;
+        let url = `https://g6t5-flask.herokuapp.com/trainer/getAllQualifications/${this.id}`;
         axios.get(url).then(response => {
           console.log(response.data);
           this.qualifications = response.data;
@@ -76,9 +76,9 @@ export default {
     getDetails() {
       var url = ''
       if (this.$store.state.acc_type == 'learner'){
-        url = `http://127.0.0.1:5000/learner/${this.id}`;
+        url = `https://g6t5-flask.herokuapp.com/learner/${this.id}`;
       } else if (this.$store.state.acc_type == 'trainer'){
-        url = `http://127.0.0.1:5000/trainer/${this.id}`;
+        url = `https://g6t5-flask.herokuapp.com/trainer/${this.id}`;
       }
       axios.get(url).then(response => {
         console.log(response.data);

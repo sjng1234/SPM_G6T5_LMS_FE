@@ -109,7 +109,7 @@ export default {
   mounted() {
     if (!this.class_data.length) {
       let url =
-        `http://127.0.0.1:5000/trainer/getAllClasses/${this.id}`;
+        `https://g6t5-flask.herokuapp.com/trainer/getAllClasses/${this.id}`;
       axios
         .get(url)
         .then((response) => {

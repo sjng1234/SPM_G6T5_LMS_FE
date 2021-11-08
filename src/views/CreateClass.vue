@@ -95,7 +95,7 @@ export default {
     },
   },
   mounted() {
-      axios.get("http://127.0.0.1:5000/admin/getAllTrainers").then(response => {
+      axios.get("https://g6t5-flask.herokuapp.com/admin/getAllTrainers").then(response => {
           this.trainers = response.data;
       }).catch(error => {
           console.log(error);
@@ -120,7 +120,7 @@ export default {
         var success = confirm("Are you sure you want to create this class?")
         if(success){
         axios
-          .post("http://127.0.0.1:5000/classes/add", course_data)
+          .post("https://g6t5-flask.herokuapp.com/classes/add", course_data)
           .then((response) => {
             console.log(response);
             this.uploaded = true;

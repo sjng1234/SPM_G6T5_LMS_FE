@@ -43,7 +43,7 @@ export default {
 
     // Axios to pull data from backend Flask API -> Have to run backend first, if successful, will see testMsg update
     axios
-      .get("http://127.0.0.1:5000/course/getAll")
+      .get("https://g6t5-flask.herokuapp.com/course/getAll")
       .then((res) => {
         console.log(res.data);
         this.testMsg = res.data;

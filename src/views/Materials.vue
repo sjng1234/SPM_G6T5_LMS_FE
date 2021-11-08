@@ -87,7 +87,7 @@ export default {
     this.course_id = course_id;
     this.class_id = class_id;
 
-    let url = `http://127.0.0.1:5000/classes/getChapters/${this.course_id}-${this.class_id}`
+    let url = `https://g6t5-flask.herokuapp.com/classes/getChapters/${this.course_id}-${this.class_id}`
     axios
       .get(url)
       .then((response) => {
@@ -135,7 +135,7 @@ export default {
     },
     checkCompletedMaterial() {
       // Check material completion status
-      let url = `http://127.0.0.1:5000/learner/getCompletedMaterials/${this.course_id}-${this.class_id}-${this.$store.state.user_id}`;
+      let url = `https://g6t5-flask.herokuapp.com/learner/getCompletedMaterials/${this.course_id}-${this.class_id}-${this.$store.state.user_id}`;
       console.log(url);
       axios.get(url).then((response) => {
         // console.log(response.data);
@@ -152,7 +152,7 @@ export default {
     
     completeMaterial(obj,chap_id) {
       // Update material completion status when user download material
-      let url = "http://127.0.0.1:5000/learner/completeMaterial"
+      let url = "https://g6t5-flask.herokuapp.com/learner/completeMaterial"
       axios.put(url, {
         learner_id: this.$store.state.user_id,
         course_id: this.course_id,

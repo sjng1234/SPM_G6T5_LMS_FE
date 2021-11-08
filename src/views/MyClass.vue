@@ -63,7 +63,7 @@ export default {
   mounted() {
     console.log(this.learner_id);
     let url =
-      `http://127.0.0.1:5000/learner/getEnrolledClasses/` + this.learner_id;
+      `https://g6t5-flask.herokuapp.com/learner/getEnrolledClasses/` + this.learner_id;
     axios
       .get(url)
       .then((response) => {
