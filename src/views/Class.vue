@@ -2,14 +2,13 @@
   <div class="container d-flex flex-column">
     <h1 class="text-start mb-2 mt-2">Course: {{ course_id }}</h1>
 
-    <div class="container row">
+    <div v-if="course_data.length>0" class="container row">
       <table class="table">
         <thead>
           <tr>
             <th scope="col">Class ID</th>
             <th scope="col">Trainer Name</th>
             <th scope="col">Trainer ID</th>
-            <!-- <th scope="col">Pre-requisites</th> -->
             <th scope="col">Class Size</th>
             <th scope="col">Start Time</th>
             <th scope="col">End Time</th>
@@ -25,7 +24,8 @@
             <td>{{ eachClass.class_size }}</td>
             <td>{{ eachClass.start_datetime.slice(0, -12) }}</td>
             <td>{{ eachClass.end_datetime.slice(0, -12) }}</td>
-            <td>
+            <!-- Insert v-if, check whether learner met pre-req -->
+            <td v-if="checkMetPreReq">
               <button
                 class="btn btn-primary"
                 v-on:click="modalOpen(eachClass.class_id)"
@@ -43,6 +43,16 @@
                 data-bs-target="#staticBackdrop"
               >
                 Drop Class
+              </button>
+            </td>
+            <td v-else>
+              <button 
+              class="btn btn-info text-secondary"
+              @click="console.log('clicked')"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasTop"
+              >
+              Pre-requisite not met
               </button>
             </td>
           </tr>
@@ -65,6 +75,33 @@
             v-on:enrol="updateClassEnrolment"
           />
         </div>
+      </div>
+    </div>
+    <div v-else>
+      <h3 class="text-danger">No Classes Available Yet</h3>
+    </div>
+    <div
+      class="offcanvas offcanvas-end"
+      style="height: fit-content; margin-right: 33%; margin-top:20%;"
+      tabindex="-1"
+      id="offcanvasTop"
+    >
+      <div class="offcanvas-header">
+        <span></span>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <h2>Pre-requisites for this course:</h2>
+        <ul class="list-group">
+          <li v-for="i in course_prereq" :key="i" class="list-group-item">
+            {{i}}
+            <span v-if="learner_badges.includes(i)" class="badge bg-success">&#10003;</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -91,6 +128,8 @@ export default {
       class_data: [],
       curr_class_id: "",
       class_status: false,
+      course_prereq: [],
+      learner_badges: [],
     };
   },
   computed: {
@@ -100,6 +139,20 @@ export default {
     checkClass(id) {
       return this.checkEnrolledClass(id);
     },
+    checkMetPreReq(){
+      let criteria = true;
+      if (this.course_prereq.length===0){
+        criteria = true;
+      }else{
+        this.course_prereq.forEach(course=>{
+          if (!this.learner_badges.includes(course)){
+            criteria = criteria && false;
+          }
+        });
+        console.log(`Met prereq? ${criteria}`)
+      }
+      return criteria;
+    }
   },
   mounted() {
     // console.log(this.course_id)
@@ -119,6 +172,10 @@ export default {
       });
     // Get Learner Enrolled Classes
     this.getLearnerEnrolledClasses();
+    // Get course-prerequisites
+    this.getCoursePreReq();
+    // Get Learner's Badges
+    this.getLearnerBadges();
   },
   methods: {
     modalOpen(data) {
@@ -210,6 +267,20 @@ export default {
         });
       }
     },
+    getCoursePreReq(){
+      let url = `http://127.0.0.1:5000/course/${this.course_id}/getPreReq`;
+      axios.get(url)
+      .then(res=>{
+        this.course_prereq = res.data['Pre-Requisites-List'];
+      })
+      .catch(e=> console.log(e));
+    },
+    getLearnerBadges(){
+      let url = `http://127.0.0.1:5000/learner/${this.$store.state.user_id}/getAllBadges`;
+        axios.get(url).then(res => {
+          this.learner_badges = res.data.badges;
+        }).catch(e=>console.log(e));
+    }
   },
 };
 </script>
