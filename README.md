@@ -1,4 +1,4 @@
-# SPM G5T6 Frontend
+# SPM G6T5 Frontend
 
 ## Members:
 ```
