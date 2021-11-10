@@ -1,4 +1,13 @@
-# spm-lms
+# SPM G5T6 Frontend
+
+## Members:
+```
+Adrian
+Ambrose
+Hein
+Justin 
+Shen Jie
+```
 
 ## Project setup
 ```
